@@ -1,1 +1,2 @@
-
+[MEDIUM] Execution from Temp Directory | User: guestx | Time: 2026-01-25T13:04:01.561624+00:00 | Msg: 2026-01-25T13:04:01.561624+00:00 ub24 CRON[1933]: (guestx) CMD (/tmp/update.sh)
+[MEDIUM] Execution from Temp Directory | User: guestx | Time: 2026-01-25T13:05:01.611430+00:00 | Msg: 2026-01-25T13:05:01.611430+00:00 ub24 CRON[1938]: (guestx) CMD (/tmp/update.sh)
