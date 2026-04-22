@@ -1,1 +1,84 @@
-
+timestamp,event_type,username,source_ip,command,raw_message
+2026-01-22T13:45:01.783453+00:00,cron_activity,root(uid=0),,,2026-01-22T13:45:01.783453+00:00 ub24 CRON[1101]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-22T13:53:50.666957+00:00,sudo_command,guestx,,/usr/sbin/shutdown now,2026-01-22T13:53:50.666957+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/sbin/shutdown now
+2026-01-22T14:15:01.858445+00:00,cron_activity,root(uid=0),,,2026-01-22T14:15:01.858445+00:00 ub24 CRON[1014]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-22T14:17:01.943261+00:00,cron_activity,root(uid=0),,,2026-01-22T14:17:01.943261+00:00 ub24 CRON[1019]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-22T14:17:49.384019+00:00,sudo_command,guestx,,/usr/bin/systemctl enable ssh,2026-01-22T14:17:49.384019+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/systemctl enable ssh
+2026-01-22T14:18:04.116000+00:00,sudo_command,guestx,,/usr/bin/systemctl start ssh,2026-01-22T14:18:04.116000+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/systemctl start ssh
+2026-01-22T14:24:25.257201+00:00,sudo_command,guestx,,/usr/sbin/ufw status,2026-01-22T14:24:25.257201+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/sbin/ufw status
+2026-01-22T14:24:56.555550+00:00,sudo_command,guestx,,/usr/sbin/shutdown now,2026-01-22T14:24:56.555550+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/sbin/shutdown now
+2026-01-22T14:33:34.421682+00:00,ssh_failed,guestx,10.0.2.2,,2026-01-22T14:33:34.421682+00:00 ub24 sshd[973]: Failed password for guestx from 10.0.2.2 port 54984 ssh2
+2026-01-22T14:34:06.292010+00:00,sudo_command,guestx,,/usr/sbin/ufw status,2026-01-22T14:34:06.292010+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/sbin/ufw status
+2026-01-22T14:35:01.834334+00:00,cron_activity,root(uid=0),,,2026-01-22T14:35:01.834334+00:00 ub24 CRON[987]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-22T14:43:03.988095+00:00,ssh_success,guestx,10.0.2.2,,2026-01-22T14:43:03.988095+00:00 ub24 sshd[999]: Accepted password for guestx from 10.0.2.2 port 54994 ssh2
+2026-01-22T14:43:55.054894+00:00,sudo_command,guestx,,/usr/sbin/shutdown now,2026-01-22T14:43:55.054894+00:00 ub24 sudo:   guestx : TTY=pts/0 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/sbin/shutdown now
+2026-01-24T13:55:01.535506+00:00,cron_activity,root(uid=0),,,2026-01-24T13:55:01.535506+00:00 ub24 CRON[1060]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-24T14:05:01.560785+00:00,cron_activity,root(uid=0),,,2026-01-24T14:05:01.560785+00:00 ub24 CRON[1076]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-24T14:08:45.703750+00:00,ssh_success,guestx,10.0.2.2,,2026-01-24T14:08:45.703750+00:00 ub24 sshd[1084]: Accepted password for guestx from 10.0.2.2 port 55479 ssh2
+2026-01-24T14:11:00.561806+00:00,sudo_command,guestx,,/usr/sbin/shutdown now,2026-01-24T14:11:00.561806+00:00 ub24 sudo:   guestx : TTY=pts/0 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/sbin/shutdown now
+2026-01-24T14:17:01.379657+00:00,cron_activity,root(uid=0),,,2026-01-24T14:17:01.379657+00:00 ub24 CRON[941]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-24T14:19:32.511230+00:00,ssh_success,guestx,192.168.43.233,,2026-01-24T14:19:32.511230+00:00 ub24 sshd[945]: Accepted password for guestx from 192.168.43.233 port 55486 ssh2
+2026-01-24T14:20:48.073367+00:00,sudo_command,guestx,,/usr/bin/bash ./wazuh-install.sh -a,2026-01-24T14:20:48.073367+00:00 ub24 sudo:   guestx : TTY=pts/0 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/bash ./wazuh-install.sh -a
+2026-01-24T14:25:01.406893+00:00,cron_activity,root(uid=0),,,2026-01-24T14:25:01.406893+00:00 ub24 CRON[1440]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-24T14:35:01.437594+00:00,cron_activity,root(uid=0),,,2026-01-24T14:35:01.437594+00:00 ub24 CRON[1455]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-24T14:45:01.446036+00:00,cron_activity,root(uid=0),,,2026-01-24T14:45:01.446036+00:00 ub24 CRON[1466]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-24T14:48:10.403371+00:00,sudo_command,guestx,,/usr/sbin/shutdown now,2026-01-24T14:48:10.403371+00:00 ub24 sudo:   guestx : TTY=pts/0 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/sbin/shutdown now
+2026-01-25T11:23:37.509323+00:00,ssh_success,guestx,192.168.43.233,,2026-01-25T11:23:37.509323+00:00 ub24 sshd[982]: Accepted password for guestx from 192.168.43.233 port 55650 ssh2
+2026-01-25T11:24:42.171576+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T11:24:42.171576+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T11:25:01.782021+00:00,cron_activity,root(uid=0),,,2026-01-25T11:25:01.782021+00:00 ub24 CRON[1051]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T11:31:55.814646+00:00,sudo_command,guestx,,/usr/bin/apt update,2026-01-25T11:31:55.814646+00:00 ub24 sudo:   guestx : TTY=pts/0 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/apt update
+2026-01-25T11:32:58.159213+00:00,sudo_command,guestx,,/usr/bin/apt install tree -y,2026-01-25T11:32:58.159213+00:00 ub24 sudo:   guestx : TTY=pts/0 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/apt install tree -y
+2026-01-25T11:34:09.613437+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T11:34:09.613437+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T11:35:01.837396+00:00,cron_activity,root(uid=0),,,2026-01-25T11:35:01.837396+00:00 ub24 CRON[1467]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T11:38:53.236834+00:00,ssh_invalid_user,guest,192.168.43.155,,2026-01-25T11:38:53.236834+00:00 ub24 sshd[1478]: Invalid user guest from 192.168.43.155 port 59980
+2026-01-25T11:39:04.186212+00:00,ssh_failed,guest,192.168.43.155,,2026-01-25T11:39:04.186212+00:00 ub24 sshd[1478]: Failed password for invalid user guest from 192.168.43.155 port 59980 ssh2
+2026-01-25T11:40:13.713768+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T11:40:13.713768+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T11:45:01.870301+00:00,cron_activity,root(uid=0),,,2026-01-25T11:45:01.870301+00:00 ub24 CRON[1490]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T11:47:31.043484+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T11:47:31.043484+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T11:55:01.902447+00:00,cron_activity,root(uid=0),,,2026-01-25T11:55:01.902447+00:00 ub24 CRON[1586]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T11:59:01.942464+00:00,cron_activity,guestx(uid=1000),,,2026-01-25T11:59:01.942464+00:00 ub24 CRON[1618]: pam_unix(cron:session): session opened for user guestx(uid=1000) by guestx(uid=0)
+2026-01-25T11:59:51.804479+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T11:59:51.804479+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T12:00:01.990856+00:00,cron_activity,guestx(uid=1000),,,2026-01-25T12:00:01.990856+00:00 ub24 CRON[1624]: pam_unix(cron:session): session opened for user guestx(uid=1000) by guestx(uid=0)
+2026-01-25T12:00:51.900420+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/syslog,2026-01-25T12:00:51.900420+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/syslog
+2026-01-25T12:01:01.040656+00:00,cron_activity,guestx(uid=1000),,,2026-01-25T12:01:01.040656+00:00 ub24 CRON[1633]: pam_unix(cron:session): session opened for user guestx(uid=1000) by guestx(uid=0)
+2026-01-25T12:05:01.080828+00:00,cron_activity,root(uid=0),,,2026-01-25T12:05:01.080828+00:00 ub24 CRON[1641]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T12:15:01.122327+00:00,cron_activity,root(uid=0),,,2026-01-25T12:15:01.122327+00:00 ub24 CRON[1652]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T12:17:01.160666+00:00,cron_activity,root(uid=0),,,2026-01-25T12:17:01.160666+00:00 ub24 CRON[1656]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T12:25:01.229483+00:00,cron_activity,root(uid=0),,,2026-01-25T12:25:01.229483+00:00 ub24 CRON[1672]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T12:38:28.848438+00:00,ssh_success,guestx,192.168.43.233,,2026-01-25T12:38:28.848438+00:00 ub24 sshd[1690]: Accepted password for guestx from 192.168.43.233 port 55737 ssh2
+2026-01-25T12:39:00.462170+00:00,cron_activity,root(uid=0),,,2026-01-25T12:39:00.462170+00:00 ub24 CRON[1802]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T12:39:44.120287+00:00,ssh_invalid_user,guestg,192.168.43.233,,2026-01-25T12:39:44.120287+00:00 ub24 sshd[1808]: Invalid user guestg from 192.168.43.233 port 55741
+2026-01-25T12:39:51.685973+00:00,ssh_failed,guestg,192.168.43.233,,2026-01-25T12:39:51.685973+00:00 ub24 sshd[1808]: Failed password for invalid user guestg from 192.168.43.233 port 55741 ssh2
+2026-01-25T12:41:24.241769+00:00,ssh_failed,guestg,192.168.43.233,,2026-01-25T12:41:24.241769+00:00 ub24 sshd[1808]: Failed password for invalid user guestg from 192.168.43.233 port 55741 ssh2
+2026-01-25T12:42:41.789685+00:00,ssh_invalid_user,guestp,192.168.43.233,,2026-01-25T12:42:41.789685+00:00 ub24 sshd[1812]: Invalid user guestp from 192.168.43.233 port 55746
+2026-01-25T12:42:48.351793+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:42:48.351793+00:00 ub24 sshd[1812]: Failed password for invalid user guestp from 192.168.43.233 port 55746 ssh2
+2026-01-25T12:42:54.936710+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:42:54.936710+00:00 ub24 sshd[1812]: Failed password for invalid user guestp from 192.168.43.233 port 55746 ssh2
+2026-01-25T12:43:01.348726+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:43:01.348726+00:00 ub24 sshd[1812]: Failed password for invalid user guestp from 192.168.43.233 port 55746 ssh2
+2026-01-25T12:45:01.486529+00:00,cron_activity,root(uid=0),,,2026-01-25T12:45:01.486529+00:00 ub24 CRON[1815]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T12:45:27.146183+00:00,ssh_invalid_user,guestp,192.168.43.233,,2026-01-25T12:45:27.146183+00:00 ub24 sshd[1818]: Invalid user guestp from 192.168.43.233 port 55755
+2026-01-25T12:45:30.969451+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:45:30.969451+00:00 ub24 sshd[1818]: Failed password for invalid user guestp from 192.168.43.233 port 55755 ssh2
+2026-01-25T12:45:33.843515+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:45:33.843515+00:00 ub24 sshd[1818]: Failed password for invalid user guestp from 192.168.43.233 port 55755 ssh2
+2026-01-25T12:45:37.611796+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:45:37.611796+00:00 ub24 sshd[1818]: Failed password for invalid user guestp from 192.168.43.233 port 55755 ssh2
+2026-01-25T12:45:43.559752+00:00,ssh_invalid_user,guestp,192.168.43.233,,2026-01-25T12:45:43.559752+00:00 ub24 sshd[1821]: Invalid user guestp from 192.168.43.233 port 55756
+2026-01-25T12:45:47.000751+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:45:47.000751+00:00 ub24 sshd[1821]: Failed password for invalid user guestp from 192.168.43.233 port 55756 ssh2
+2026-01-25T12:45:52.063527+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:45:52.063527+00:00 ub24 sshd[1821]: Failed password for invalid user guestp from 192.168.43.233 port 55756 ssh2
+2026-01-25T12:45:57.169682+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:45:57.169682+00:00 ub24 sshd[1821]: Failed password for invalid user guestp from 192.168.43.233 port 55756 ssh2
+2026-01-25T12:46:07.542251+00:00,ssh_invalid_user,guestp,192.168.43.233,,2026-01-25T12:46:07.542251+00:00 ub24 sshd[1823]: Invalid user guestp from 192.168.43.233 port 55757
+2026-01-25T12:46:12.413721+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:46:12.413721+00:00 ub24 sshd[1823]: Failed password for invalid user guestp from 192.168.43.233 port 55757 ssh2
+2026-01-25T12:46:26.513039+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:46:26.513039+00:00 ub24 sshd[1823]: Failed password for invalid user guestp from 192.168.43.233 port 55757 ssh2
+2026-01-25T12:46:31.047320+00:00,ssh_failed,guestp,192.168.43.233,,2026-01-25T12:46:31.047320+00:00 ub24 sshd[1823]: Failed password for invalid user guestp from 192.168.43.233 port 55757 ssh2
+2026-01-25T12:47:58.130171+00:00,sudo_command,guestx,,/usr/bin/grep 'Failed password' /var/log/auth.log,2026-01-25T12:47:58.130171+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/grep 'Failed password' /var/log/auth.log
+2026-01-25T12:51:48.429558+00:00,ssh_success,guestx,192.168.43.233,,2026-01-25T12:51:48.429558+00:00 ub24 sshd[1834]: Accepted password for guestx from 192.168.43.233 port 55767 ssh2
+2026-01-25T12:52:10.830295+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T12:52:10.830295+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T12:53:17.239279+00:00,sudo_command,guestx,,/usr/bin/cat /etc/shadow,2026-01-25T12:53:17.239279+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/cat /etc/shadow
+2026-01-25T12:54:40.108990+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T12:54:40.108990+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T12:55:01.515283+00:00,cron_activity,root(uid=0),,,2026-01-25T12:55:01.515283+00:00 ub24 CRON[1911]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T13:04:01.559015+00:00,cron_activity,guestx(uid=1000),,,2026-01-25T13:04:01.559015+00:00 ub24 CRON[1932]: pam_unix(cron:session): session opened for user guestx(uid=1000) by guestx(uid=0)
+2026-01-25T13:05:01.597796+00:00,cron_activity,root(uid=0),,,2026-01-25T13:05:01.597796+00:00 ub24 CRON[1935]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T13:05:01.605379+00:00,cron_activity,guestx(uid=1000),,,2026-01-25T13:05:01.605379+00:00 ub24 CRON[1936]: pam_unix(cron:session): session opened for user guestx(uid=1000) by guestx(uid=0)
+2026-01-25T13:05:35.795802+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/syslog,2026-01-25T13:05:35.795802+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/syslog
+2026-01-25T13:10:17.496983+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T13:10:17.496983+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T13:11:08.431636+00:00,sudo_command,guestx,,/usr/bin/tail -n 20 /var/log/auth.log,2026-01-25T13:11:08.431636+00:00 ub24 sudo:   guestx : TTY=tty1 ; PWD=/home/guestx ; USER=root ; COMMAND=/usr/bin/tail -n 20 /var/log/auth.log
+2026-01-25T13:15:01.645807+00:00,cron_activity,root(uid=0),,,2026-01-25T13:15:01.645807+00:00 ub24 CRON[1994]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T13:17:01.667635+00:00,cron_activity,root(uid=0),,,2026-01-25T13:17:01.667635+00:00 ub24 CRON[2012]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-01-25T13:25:01.692295+00:00,cron_activity,root(uid=0),,,2026-01-25T13:25:01.692295+00:00 ub24 CRON[2023]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
