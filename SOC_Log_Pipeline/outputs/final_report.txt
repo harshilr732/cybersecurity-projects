@@ -1,1 +1,23 @@
+===== AUTH ALERTS =====
+
+[MEDIUM] SSH Service Modification | User: guestx | Command: /usr/bin/systemctl enable ssh | Time: 2026-01-22 14:17:49.384019+00:00
+[MEDIUM] SSH Service Modification | User: guestx | Command: /usr/bin/systemctl start ssh | Time: 2026-01-22 14:18:04.116000+00:00
+[LOW] Log File Access | User: guestx | Command: /usr/bin/tail -n 20 /var/log/auth.log | Time: 2026-01-25 11:24:42.171576+00:00
+[LOW] Log File Access | User: guestx | Command: /usr/bin/tail -n 20 /var/log/syslog | Time: 2026-01-25 12:00:51.900420+00:00
+[HIGH] SSH Brute Force | IP: 192.168.43.233 | Attempts: 5 | Window: 5 min | Time: 2026-01-25 12:43:01.348726+00:00
+[CRITICAL] Possible Account Compromise | IP: 192.168.43.233 | User: guestx | Time: 2026-01-25 12:51:48.429558+00:00
+[HIGH] Sensitive File Access | User: guestx | Command: /usr/bin/cat /etc/shadow | Time: 2026-01-25 12:53:17.239279+00:00
+
+===== SYSLOG ALERTS =====
+
+[MEDIUM] Execution from Temp Directory | User: guestx | Time: 2026-01-25T13:04:01.561624+00:00 | Msg: 2026-01-25T13:04:01.561624+00:00 ub24 CRON[1933]: (guestx) CMD (/tmp/update.sh)
+[MEDIUM] Execution from Temp Directory | User: guestx | Time: 2026-01-25T13:05:01.611430+00:00 | Msg: 2026-01-25T13:05:01.611430+00:00 ub24 CRON[1938]: (guestx) CMD (/tmp/update.sh)
+
+===== INCIDENT SUMMARY =====
+
+Multi-stage intrusion pattern detected:
+- Brute force activity observed
+- Possible credential compromise
+- Sensitive file access detected
+- Execution from temporary directory (possible payload execution)
 
