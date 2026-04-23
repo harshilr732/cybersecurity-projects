@@ -5,9 +5,9 @@ NETWORK SEGMENTATION ATTACK SIMULATION (LATERAL MOVEMENT)
 
 LAB OVERVIEW
 
-Title: Practical 12 — Network Segmentation Attack Simulation
+Title: Practical 12 â€” Network Segmentation Attack Simulation
 Tool: Cisco Packet Tracer
-Level: Intermediate–Advanced
+Level: Intermediateâ€“Advanced
 Topic: Lateral Movement + VLAN Segmentation Enforcement
 
 ====================================================
@@ -34,13 +34,13 @@ Lateral movement is one of the most important post-exploitation stages.
 
 Mapped to MITRE ATT&CK:
 
-TA0008 — Lateral Movement
+TA0008 â€” Lateral Movement
 
-T1021 — Remote Services
+T1021 â€” Remote Services
 
-T1078 — Valid Accounts
+T1078 â€” Valid Accounts
 
-T1046 — Network Service Discovery
+T1046 â€” Network Service Discovery
 
 SOC analysts look for:
 
@@ -56,9 +56,9 @@ SCENARIO (REALISTIC ENTERPRISE)
 
 We simulate an organization with 3 zones:
 
-VLAN10 — Employee Network (User PCs)
-VLAN20 — Finance Network (Sensitive)
-VLAN30 — Server Network (Critical Services)
+VLAN10 â€” Employee Network (User PCs)
+VLAN20 â€” Finance Network (Sensitive)
+VLAN30 â€” Server Network (Critical Services)
 
 Attack simulation:
 
@@ -102,7 +102,7 @@ LAB BUILD STEPS
 
 ====================================================
 
-STEP 1 — CREATE VLANs ON SWITCH
+STEP 1 â€” CREATE VLANs ON SWITCH
 
 Switch CLI:
 
@@ -123,7 +123,7 @@ exit
 
 ====================================================
 
-STEP 2 — ASSIGN PORTS
+STEP 2 â€” ASSIGN PORTS
 
 Assume:
 
@@ -150,7 +150,7 @@ exit
 
 ====================================================
 
-STEP 3 — CONFIGURE TRUNK TO ROUTER
+STEP 3 â€” CONFIGURE TRUNK TO ROUTER
 
 Router connected on Fa0/24:
 
@@ -160,7 +160,7 @@ exit
 
 ====================================================
 
-STEP 4 — ROUTER-ON-A-STICK CONFIG
+STEP 4 â€” ROUTER-ON-A-STICK CONFIG
 
 Router CLI:
 
@@ -188,7 +188,7 @@ exit
 
 ====================================================
 
-STEP 5 — CONFIGURE PCs
+STEP 5 â€” CONFIGURE PCs
 
 PC-A:
 
@@ -213,7 +213,7 @@ ATTACK SIMULATION (LATERAL MOVEMENT)
 
 Attacker is on PC-A (Employee VLAN10)
 
-STEP 1 — Network Discovery Attempt
+STEP 1 â€” Network Discovery Attempt
 
 From PC-A:
 
@@ -311,32 +311,3 @@ This is equivalent to firewall deny logs.
 
 ====================================================
 
-WHAT THIS LAB PROVES (INTERVIEW READY)
-
-====================================================
-
-“I simulated lateral movement from an employee VLAN into sensitive finance and server VLANs. Then I enforced segmentation using router ACLs to block unauthorized east-west traffic, validating controls through hit-count monitoring.”
-
-That is a strong SOC-style networking project.
-
-====================================================
-
-LAB DELIVERABLES
-
-====================================================
-
-Save:
-
-Topology screenshot
-
-Successful ping before ACL
-
-Failed ping after ACL
-
-show access-lists output
-
-Short incident-style explanation:
-
-“Unauthorized VLAN10 access attempt blocked.”
-
-================================
