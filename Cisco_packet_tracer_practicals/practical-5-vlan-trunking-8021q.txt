@@ -5,9 +5,9 @@ TRUNKING (802.1Q) AND ALLOWED VLANs (CISCO PACKET TRACER)
 
 LAB OVERVIEW
 
-Title: Practical 5 ó VLAN Trunking (802.1Q)
+Title: Practical 5 ‚Äî VLAN Trunking (802.1Q)
 Tool: Cisco Packet Tracer
-Level: BeginnerñIntermediate
+Level: Beginner‚ÄìIntermediate
 Topic: Trunk Links, VLAN Transport Between Switches
 
 ====================================================
@@ -58,7 +58,7 @@ VLAN 10 exists on both switches
 
 VLAN 20 exists on both switches
 
-Switch1ñSwitch2 link is a trunk
+Switch1‚ÄìSwitch2 link is a trunk
 
 Devices Required:
 
@@ -91,7 +91,7 @@ LAB IMPLEMENTATION STEPS
 
 ====================================================
 
-STEP 1 ó PLACE DEVICES
+STEP 1 ‚Äî PLACE DEVICES
 
 Open Packet Tracer
 
@@ -107,7 +107,7 @@ PC3, PC4 on Switch2
 
 ====================================================
 
-STEP 2 ó CONNECT DEVICES
+STEP 2 ‚Äî CONNECT DEVICES
 
 PC Connections
 
@@ -127,7 +127,7 @@ Wait for green lights.
 
 ====================================================
 
-STEP 3 ó CONFIGURE IP ADDRESSES ON PCs
+STEP 3 ‚Äî CONFIGURE IP ADDRESSES ON PCs
 
 Same as Practical 4.
 
@@ -138,7 +138,7 @@ PC4: 192.168.20.20
 
 ====================================================
 
-STEP 4 ó CREATE VLANs ON BOTH SWITCHES
+STEP 4 ‚Äî CREATE VLANs ON BOTH SWITCHES
 
 You must create VLANs on BOTH switches.
 
@@ -170,7 +170,7 @@ exit
 
 ====================================================
 
-STEP 5 ó ASSIGN ACCESS PORTS TO VLANs
+STEP 5 ‚Äî ASSIGN ACCESS PORTS TO VLANs
 
 Switch1 Port Assignments
 
@@ -188,7 +188,7 @@ exit
 
 ====================================================
 
-STEP 6 ó CONFIGURE TRUNK PORT BETWEEN SWITCHES
+STEP 6 ‚Äî CONFIGURE TRUNK PORT BETWEEN SWITCHES
 
 Now configure Fa0/24 on both switches as trunk.
 
@@ -212,7 +212,7 @@ VERIFICATION
 
 ====================================================
 
-STEP 1 ó CHECK TRUNK STATUS
+STEP 1 ‚Äî CHECK TRUNK STATUS
 
 On both switches:
 
@@ -226,7 +226,7 @@ Allowed VLANs: 1,10,20
 
 ====================================================
 
-STEP 2 ó TEST VLAN COMMUNICATION ACROSS SWITCHES
+STEP 2 ‚Äî TEST VLAN COMMUNICATION ACROSS SWITCHES
 
 Test VLAN 10:
 
@@ -290,24 +290,8 @@ Can potentially hop or reach sensitive VLANs
 
 Proper allowed VLAN restriction reduces attack surface.
 
-====================================================
 
-LAB DELIVERABLES
-
-====================================================
-
-Save:
-
-Screenshot of topology
-
-Output of:
-
-show interfaces trunk
-
-Output showing allowed VLAN restriction
-
-Brief conclusion
 
 Conclusion:
 
-ìThis lab demonstrated VLAN trunking between switches using 802.1Q and showed how restricting allowed VLANs improves segmentation security.î
+‚ÄúThis lab demonstrated VLAN trunking between switches using 802.1Q and showed how restricting allowed VLANs improves segmentation security.‚Äù
