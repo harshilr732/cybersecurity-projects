@@ -246,22 +246,4 @@ clear mac address-table dynamic
 
 Then ping again to see learning repeat.
 
-====================================================
-
-LAB DELIVERABLES
-
-====================================================
-
-You must save:
-
-Screenshot of topology
-
-Ping output (PC1 ? PC2)
-
-Output of:
-
-show mac address-table
-
-Short conclusion:
-
-“This lab demonstrated how switches learn MAC addresses dynamically and flood unknown traffic before forwarding efficiently.”
+mically and flood unknown traffic before forwarding efficiently.”
