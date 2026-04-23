@@ -5,7 +5,7 @@ VLAN CREATION AND PORT ASSIGNMENT (CISCO PACKET TRACER)
 
 LAB OVERVIEW
 
-Title: Practical 4 ó VLAN Creation and Port Assignment
+Title: Practical 4 ‚Äî VLAN Creation and Port Assignment
 Tool: Cisco Packet Tracer
 Level: Beginner
 Topic: VLAN Segmentation, Broadcast Domain Separation
@@ -68,9 +68,9 @@ Devices Required:
 Topology Layout:
 
 PC1 -+
-PC2 -¶
+PC2 -¬¶
 Switch
-PC3 -¶
+PC3 -¬¶
 PC4 -+
 
 ====================================================
@@ -98,7 +98,7 @@ LAB IMPLEMENTATION STEPS
 
 ====================================================
 
-STEP 1 ó PLACE DEVICES
+STEP 1 ‚Äî PLACE DEVICES
 
 Open Packet Tracer
 
@@ -110,7 +110,7 @@ Add:
 
 ====================================================
 
-STEP 2 ó CONNECT DEVICES
+STEP 2 ‚Äî CONNECT DEVICES
 
 Use Copper Straight-Through cables:
 
@@ -123,7 +123,7 @@ Wait until all links are green.
 
 ====================================================
 
-STEP 3 ó CONFIGURE IP ADDRESSES
+STEP 3 ‚Äî CONFIGURE IP ADDRESSES
 
 Configure PCs:
 
@@ -151,7 +151,7 @@ Default Gateway: Leave blank (no router)
 
 ====================================================
 
-STEP 4 ó CREATE VLANs ON THE SWITCH
+STEP 4 ‚Äî CREATE VLANs ON THE SWITCH
 
 Click Switch ? CLI
 
@@ -174,7 +174,7 @@ exit
 
 ====================================================
 
-STEP 5 ó ASSIGN PORTS TO VLANs
+STEP 5 ‚Äî ASSIGN PORTS TO VLANs
 
 Assign PC1 and PC2 ports to VLAN 10
 
@@ -196,7 +196,7 @@ VERIFICATION
 
 ====================================================
 
-STEP 1 ó CHECK VLAN LIST
+STEP 1 ‚Äî CHECK VLAN LIST
 
 On switch:
 
@@ -209,7 +209,7 @@ VLAN 20 ? Fa0/3, Fa0/4
 
 ====================================================
 
-STEP 2 ó TEST CONNECTIVITY WITHIN VLAN
+STEP 2 ‚Äî TEST CONNECTIVITY WITHIN VLAN
 
 Ping inside VLAN 10:
 
@@ -229,7 +229,7 @@ Expected: SUCCESS
 
 ====================================================
 
-STEP 3 ó TEST CONNECTIVITY ACROSS VLANs
+STEP 3 ‚Äî TEST CONNECTIVITY ACROSS VLANs
 
 From PC1 (VLAN 10):
 
@@ -274,26 +274,9 @@ Commands:
 show vlan brief
 show running-config
 
-====================================================
-
-LAB DELIVERABLES
-
-====================================================
-
-You must save:
-
-Screenshot of topology
-
-Output of show vlan brief
-
-Successful ping within VLAN 10
-
-Successful ping within VLAN 20
-
-Failed ping across VLANs
 
 Conclusion:
 
-ìThis lab demonstrated VLAN-based segmentation by isolating hosts into separate broadcast domains using access port assignments.î
+‚ÄúThis lab demonstrated VLAN-based segmentation by isolating hosts into separate broadcast domains using access port assignments.‚Äù
 
 ==================
