@@ -250,26 +250,4 @@ This is ARP spoofing ? MITM attack.
 
 That is why ARP monitoring is important in SOC.
 
-====================================================
 
-LAB DELIVERABLES
-
-====================================================
-
-You must save:
-
-Screenshot of topology
-
-Output of arp -a before ping
-
-Output of arp -a after ping
-
-Simulation view showing ARP request + reply
-
-Successful ping output
-
-Conclusion statement:
-
-“This lab demonstrated ARP’s role in mapping IP addresses to MAC addresses and how ARP resolution occurs before ICMP communication.”
-
-==================================
