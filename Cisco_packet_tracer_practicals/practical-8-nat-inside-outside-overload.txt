@@ -1,11 +1,11 @@
 PRACTICAL 8
-NAT (INSIDE vs OUTSIDE) ó BASIC NETWORK ADDRESS TRANSLATION
+NAT (INSIDE vs OUTSIDE) ‚Äî BASIC NETWORK ADDRESS TRANSLATION
 
 ====================================================
 
 LAB OVERVIEW
 
-Title: Practical 8 ó NAT Configuration (Inside vs Outside)
+Title: Practical 8 ‚Äî NAT Configuration (Inside vs Outside)
 Tool: Cisco Packet Tracer
 Level: Intermediate
 Topic: NAT, Private-to-Public Translation, Internet Access Simulation
@@ -92,7 +92,7 @@ LAB IMPLEMENTATION STEPS
 
 ====================================================
 
-STEP 1 ó PLACE DEVICES
+STEP 1 ‚Äî PLACE DEVICES
 
 In Packet Tracer, add:
 
@@ -110,7 +110,7 @@ PC1 ? Switch ? Router ? Server
 
 ====================================================
 
-STEP 2 ó CONNECT DEVICES
+STEP 2 ‚Äî CONNECT DEVICES
 
 Use Copper Straight-Through:
 
@@ -122,7 +122,7 @@ Wait for green link lights.
 
 ====================================================
 
-STEP 3 ó CONFIGURE PC1 (INSIDE HOST)
+STEP 3 ‚Äî CONFIGURE PC1 (INSIDE HOST)
 
 Click PC1 ? Desktop ? IP Configuration
 
@@ -132,7 +132,7 @@ Default Gateway: 192.168.10.1
 
 ====================================================
 
-STEP 4 ó CONFIGURE SERVER (OUTSIDE HOST)
+STEP 4 ‚Äî CONFIGURE SERVER (OUTSIDE HOST)
 
 Click Server ? Desktop ? IP Configuration
 
@@ -142,7 +142,7 @@ Default Gateway: 200.1.1.1
 
 ====================================================
 
-STEP 5 ó CONFIGURE ROUTER INTERFACES
+STEP 5 ‚Äî CONFIGURE ROUTER INTERFACES
 
 Router CLI:
 
@@ -165,7 +165,7 @@ exit
 
 ====================================================
 
-STEP 6 ó TEST CONNECTIVITY BEFORE NAT
+STEP 6 ‚Äî TEST CONNECTIVITY BEFORE NAT
 
 From PC1:
 
@@ -185,7 +185,7 @@ NAT CONFIGURATION (PAT OVERLOAD)
 
 We will configure NAT Overload (many-to-one translation).
 
-STEP 1 ó Define Inside and Outside Interfaces
+STEP 1 ‚Äî Define Inside and Outside Interfaces
 
 Router CLI:
 
@@ -199,11 +199,11 @@ interface gigabitEthernet0/1
 ip nat outside
 exit
 
-STEP 2 ó Create Access List for Inside Network
+STEP 2 ‚Äî Create Access List for Inside Network
 
 access-list 1 permit 192.168.10.0 0.0.0.255
 
-STEP 3 ó Enable NAT Overload Using Outside Interface IP
+STEP 3 ‚Äî Enable NAT Overload Using Outside Interface IP
 
 ip nat inside source list 1 interface gigabitEthernet0/1 overload
 
@@ -222,7 +222,7 @@ VERIFICATION AND TESTING
 
 ====================================================
 
-STEP 1 ó Ping External Server
+STEP 1 ‚Äî Ping External Server
 
 From PC1:
 
@@ -230,7 +230,7 @@ ping 200.1.1.10
 
 Expected: SUCCESS
 
-STEP 2 ó Check NAT Translation Table
+STEP 2 ‚Äî Check NAT Translation Table
 
 On router:
 
@@ -243,9 +243,9 @@ Inside Local Inside Global Outside Local Outside Global
 
 Meaning:
 
-PC1 private IP is translated into routerís public IP.
+PC1 private IP is translated into router‚Äôs public IP.
 
-STEP 3 ó Check NAT Statistics
+STEP 3 ‚Äî Check NAT Statistics
 
 show ip nat statistics
 
@@ -292,19 +292,6 @@ show running-config
 show ip nat translations
 
 ====================================================
-
-LAB DELIVERABLES
-
-====================================================
-
-Save:
-
-Topology screenshot
-
-NAT configuration commands
-
-Successful ping PC1 ? Server
-
 Output of:
 
 show ip nat translations
@@ -312,4 +299,4 @@ show ip nat statistics
 
 Conclusion:
 
-ìThis lab demonstrated NAT Overload, translating private internal IPs into a public IP for external communication.î
+‚ÄúThis lab demonstrated NAT Overload, translating private internal IPs into a public IP for external communication.‚Äù
