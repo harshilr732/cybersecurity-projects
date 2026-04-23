@@ -5,7 +5,7 @@ ACLs APPLIED BETWEEN VLANs (INTER-VLAN ACCESS CONTROL)
 
 LAB OVERVIEW
 
-Title: Practical 7 ó Access Control Lists (ACLs) Between VLANs
+Title: Practical 7 ‚Äî Access Control Lists (ACLs) Between VLANs
 Tool: Cisco Packet Tracer
 Level: Intermediate
 Topic: Traffic Filtering, Security Enforcement Between VLANs
@@ -51,9 +51,9 @@ TOPOLOGY (FROM PRACTICAL 6)
 We continue with Router-on-a-Stick:
 
 PC1 (VLAN10) -+
-¶
+¬¶
 Switch --- Router
-¶
+¬¶
 PC2 (VLAN20) -+
 
 Devices:
@@ -118,7 +118,7 @@ ACL CONFIGURATION STEPS
 
 ====================================================
 
-STEP 1 ó CREATE EXTENDED ACL ON ROUTER
+STEP 1 ‚Äî CREATE EXTENDED ACL ON ROUTER
 
 ACL must be applied closest to the source.
 
@@ -145,7 +145,7 @@ Second line allows everything else (important)
 
 ====================================================
 
-STEP 2 ó APPLY ACL TO VLAN10 SUBINTERFACE
+STEP 2 ‚Äî APPLY ACL TO VLAN10 SUBINTERFACE
 
 Apply inbound on G0/0.10
 
@@ -164,7 +164,7 @@ VERIFICATION AND TESTING
 
 ====================================================
 
-STEP 1 ó TEST BLOCKED TRAFFIC
+STEP 1 ‚Äî TEST BLOCKED TRAFFIC
 
 From PC1 (VLAN10):
 
@@ -174,7 +174,7 @@ Expected: FAIL
 
 This confirms ACL is blocking HR ? Finance access.
 
-STEP 2 ó TEST ALLOWED TRAFFIC (Opposite Direction)
+STEP 2 ‚Äî TEST ALLOWED TRAFFIC (Opposite Direction)
 
 From PC2 (VLAN20):
 
@@ -241,4 +241,4 @@ Output showing ACL hit counts
 
 Conclusion:
 
-ìThis lab enforced VLAN segmentation using an extended ACL, blocking unauthorized access from VLAN10 to VLAN20.î
+‚ÄúThis lab enforced VLAN segmentation using an extended ACL, blocking unauthorized access from VLAN10 to VLAN20.‚Äù
