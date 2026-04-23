@@ -5,7 +5,7 @@ SIMPLE FIREWALL RULES (BASIC TRAFFIC FILTERING)
 
 LAB OVERVIEW
 
-Title: Practical 11 ó Simple Firewall Rules
+Title: Practical 11 ‚Äî Simple Firewall Rules
 Tool: Cisco Packet Tracer
 Level: Intermediate
 Topic: Basic Firewall Policy Using ACL + Service Blocking
@@ -87,13 +87,13 @@ BASE CONFIGURATION
 
 ====================================================
 
-STEP 1 ó CONNECT DEVICES
+STEP 1 ‚Äî CONNECT DEVICES
 
 PC1 ? Switch1 ? Router ? Switch2 ? Server
 
 Use straight-through cables.
 
-STEP 2 ó CONFIGURE ROUTER INTERFACES
+STEP 2 ‚Äî CONFIGURE ROUTER INTERFACES
 
 Router CLI:
 
@@ -113,7 +113,7 @@ exit
 end
 write memory
 
-STEP 3 ó CONFIGURE PC AND SERVER IP
+STEP 3 ‚Äî CONFIGURE PC AND SERVER IP
 
 PC1:
 
@@ -174,7 +174,7 @@ CONFIGURE FIREWALL RULES (ACL)
 
 ====================================================
 
-STEP 1 ó CREATE EXTENDED ACL
+STEP 1 ‚Äî CREATE EXTENDED ACL
 
 Router CLI:
 
@@ -199,7 +199,7 @@ Deny everything else
 
 ====================================================
 
-STEP 2 ó APPLY ACL TO SERVER-SIDE INTERFACE
+STEP 2 ‚Äî APPLY ACL TO SERVER-SIDE INTERFACE
 
 Apply inbound on G0/1:
 
@@ -218,7 +218,7 @@ TESTING FIREWALL BEHAVIOR
 
 ====================================================
 
-STEP 1 ó TEST PING (SHOULD WORK)
+STEP 1 ‚Äî TEST PING (SHOULD WORK)
 
 From PC1:
 
@@ -226,7 +226,7 @@ ping 192.168.20.100
 
 Expected: SUCCESS
 
-STEP 2 ó TEST HTTP (SHOULD FAIL)
+STEP 2 ‚Äî TEST HTTP (SHOULD FAIL)
 
 From PC1:
 
@@ -236,7 +236,7 @@ Expected: Page will NOT load
 
 HTTP is blocked.
 
-STEP 3 ó CHECK ACL HIT COUNTS
+STEP 3 ‚Äî CHECK ACL HIT COUNTS
 
 On router:
 
@@ -244,8 +244,8 @@ show access-lists
 
 Expected:
 
-permit icmp Ö (hit count increases)
-deny tcp eq 80 Ö (hit count increases)
+permit icmp ‚Ä¶ (hit count increases)
+deny tcp eq 80 ‚Ä¶ (hit count increases)
 
 This is firewall evidence.
 
@@ -291,24 +291,7 @@ show running-config
 show ip interface g0/1
 show access-lists
 
-====================================================
-
-LAB DELIVERABLES
-
-====================================================
-
-Save:
-
-Topology screenshot
-
-Successful ping output
-
-Failed browser HTTP test
-
-show access-lists output with hit counts
-
-Router ACL configuration
 
 Conclusion:
 
-ìThis lab demonstrated firewall-like filtering using ACLs to allow ICMP while blocking HTTP access to a protected server.î
+‚ÄúThis lab demonstrated firewall-like filtering using ACLs to allow ICMP while blocking HTTP access to a protected server.‚Äù
