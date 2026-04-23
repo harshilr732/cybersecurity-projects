@@ -5,7 +5,7 @@ SWITCH FUNDAMENTALS (MAC TABLE, FLOODING, LEARNING)
 
 LAB OVERVIEW
 
-Title: Practical 2 ó Switch Fundamentals
+Title: Practical 2 ‚Äî Switch Fundamentals
 Tool: Cisco Packet Tracer
 Level: Beginner
 Topic: Layer 2 Switching, MAC Learning, Flooding Behavior
@@ -79,7 +79,7 @@ LAB IMPLEMENTATION STEPS
 
 ====================================================
 
-STEP 1 ó PLACE DEVICES
+STEP 1 ‚Äî PLACE DEVICES
 
 Open Packet Tracer
 
@@ -97,7 +97,7 @@ PC1 ? Switch ? PC2
 
 ====================================================
 
-STEP 2 ó CONNECT DEVICES
+STEP 2 ‚Äî CONNECT DEVICES
 
 Use Copper Straight-Through cables:
 
@@ -109,7 +109,7 @@ Wait for green link lights.
 
 ====================================================
 
-STEP 3 ó CONFIGURE IP ADDRESSES
+STEP 3 ‚Äî CONFIGURE IP ADDRESSES
 
 Configure PC1:
 
@@ -131,7 +131,7 @@ KEY EXPERIMENT: MAC LEARNING PROCESS
 
 ====================================================
 
-STEP 1 ó CHECK SWITCH MAC TABLE (INITIAL STATE)
+STEP 1 ‚Äî CHECK SWITCH MAC TABLE (INITIAL STATE)
 
 Click Switch
 
@@ -150,7 +150,7 @@ Because the switch has not learned any PC MAC addresses yet.
 
 ====================================================
 
-STEP 2 ó GENERATE TRAFFIC (PING)
+STEP 2 ‚Äî GENERATE TRAFFIC (PING)
 
 From PC1:
 
@@ -164,7 +164,7 @@ This sends an Ethernet frame through the switch.
 
 ====================================================
 
-STEP 3 ó OBSERVE SWITCH LEARNING
+STEP 3 ‚Äî OBSERVE SWITCH LEARNING
 
 Now go back to Switch CLI and run again:
 
@@ -264,4 +264,4 @@ show mac address-table
 
 Short conclusion:
 
-ìThis lab demonstrated how switches learn MAC addresses dynamically and flood unknown traffic before forwarding efficiently.î
+‚ÄúThis lab demonstrated how switches learn MAC addresses dynamically and flood unknown traffic before forwarding efficiently.‚Äù
