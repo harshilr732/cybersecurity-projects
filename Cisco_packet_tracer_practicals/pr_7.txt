@@ -1,0 +1,244 @@
+PRACTICAL 7
+ACLs APPLIED BETWEEN VLANs (INTER-VLAN ACCESS CONTROL)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 7 — Access Control Lists (ACLs) Between VLANs
+Tool: Cisco Packet Tracer
+Level: Intermediate
+Topic: Traffic Filtering, Security Enforcement Between VLANs
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+What ACLs are and why they are used
+
+Controlling traffic between VLANs
+
+Allowing specific access while blocking others
+
+Applying ACLs on router subinterfaces
+
+Verifying ACL impact using ping tests
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+ACLs are one of the most common network security controls.
+
+SOC relevance:
+
+ACLs enforce segmentation boundaries
+
+Misconfigured ACLs cause outages or exposure
+
+Alerts often occur when unauthorized VLAN access is attempted
+
+ACL logs can provide evidence of blocked lateral movement
+
+This lab simulates real enterprise internal access control.
+
+====================================================
+
+TOPOLOGY (FROM PRACTICAL 6)
+
+We continue with Router-on-a-Stick:
+
+PC1 (VLAN10) -+
+¦
+Switch --- Router
+¦
+PC2 (VLAN20) -+
+
+Devices:
+
+1 Router
+
+1 Switch
+
+2 PCs
+
+====================================================
+
+VLAN AND IP ADDRESSING PLAN
+
+Device VLAN IP Address Gateway
+
+PC1 10 192.168.10.10 192.168.10.1
+
+PC2 20 192.168.20.10 192.168.20.1
+
+Router G0/0.10 ? 192.168.10.1
+Router G0/0.20 ? 192.168.20.1
+
+====================================================
+
+BASELINE TEST (BEFORE ACL)
+
+====================================================
+
+Before applying ACLs, confirm VLANs can communicate.
+
+From PC1:
+
+ping 192.168.20.10
+
+Expected: SUCCESS
+
+This proves routing is working.
+
+====================================================
+
+SECURITY POLICY FOR THIS LAB
+
+====================================================
+
+We want to enforce:
+
+VLAN10 (HR) should NOT access VLAN20 (Finance)
+
+VLAN20 can still access VLAN10 (optional)
+
+So:
+
+Block: PC1 ? PC2
+Allow: PC2 ? PC1
+
+This is realistic: Finance is protected from HR access.
+
+====================================================
+
+ACL CONFIGURATION STEPS
+
+====================================================
+
+STEP 1 — CREATE EXTENDED ACL ON ROUTER
+
+ACL must be applied closest to the source.
+
+Source = VLAN10 network.
+
+So apply ACL inbound on subinterface G0/0.10.
+
+Router CLI
+
+enable
+configure terminal
+
+Create ACL 100
+
+access-list 100 deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255
+
+access-list 100 permit ip any any
+
+Explanation:
+
+First line blocks VLAN10 ? VLAN20 traffic
+
+Second line allows everything else (important)
+
+====================================================
+
+STEP 2 — APPLY ACL TO VLAN10 SUBINTERFACE
+
+Apply inbound on G0/0.10
+
+interface gigabitEthernet0/0.10
+ip access-group 100 in
+exit
+
+Save:
+
+end
+write memory
+
+====================================================
+
+VERIFICATION AND TESTING
+
+====================================================
+
+STEP 1 — TEST BLOCKED TRAFFIC
+
+From PC1 (VLAN10):
+
+ping 192.168.20.10
+
+Expected: FAIL
+
+This confirms ACL is blocking HR ? Finance access.
+
+STEP 2 — TEST ALLOWED TRAFFIC (Opposite Direction)
+
+From PC2 (VLAN20):
+
+ping 192.168.10.10
+
+Expected: SUCCESS
+
+Because ACL is only applied on VLAN10 inbound.
+
+====================================================
+
+CHECK ACL HIT COUNTS (SOC STYLE)
+
+====================================================
+
+On router:
+
+show access-lists
+
+Expected output:
+
+access-list 100 deny ip 192.168.10.0 ... (hitcnt increases)
+access-list 100 permit ip any any ...
+
+Hit count proves traffic was blocked.
+
+This is exactly what SOC analysts look for.
+
+====================================================
+
+TROUBLESHOOTING
+
+====================================================
+
+If everything is blocked:
+
+You forgot permit ip any any
+
+ACL applied on wrong interface/direction
+
+Commands:
+
+show running-config
+show ip interface brief
+show access-lists
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+Save:
+
+Topology screenshot
+
+ACL configuration (show access-lists)
+
+Failed ping from PC1 ? PC2
+
+Successful ping from PC2 ? PC1
+
+Output showing ACL hit counts
+
+Conclusion:
+
+“This lab enforced VLAN segmentation using an extended ACL, blocking unauthorized access from VLAN10 to VLAN20.”

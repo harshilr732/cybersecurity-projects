@@ -1,0 +1,342 @@
+PRACTICAL 12
+NETWORK SEGMENTATION ATTACK SIMULATION (LATERAL MOVEMENT)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 12 — Network Segmentation Attack Simulation
+Tool: Cisco Packet Tracer
+Level: Intermediate–Advanced
+Topic: Lateral Movement + VLAN Segmentation Enforcement
+
+====================================================
+
+OBJECTIVE
+
+To simulate:
+
+How attackers move laterally inside a network
+
+Why VLAN segmentation is critical
+
+How misconfigurations allow unauthorized access
+
+How ACLs stop lateral movement attempts
+
+SOC-style detection evidence (blocked traffic)
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+Lateral movement is one of the most important post-exploitation stages.
+
+Mapped to MITRE ATT&CK:
+
+TA0008 — Lateral Movement
+
+T1021 — Remote Services
+
+T1078 — Valid Accounts
+
+T1046 — Network Service Discovery
+
+SOC analysts look for:
+
+Unexpected VLAN-to-VLAN access
+
+Internal scanning attempts
+
+Firewall deny logs between segments
+
+====================================================
+
+SCENARIO (REALISTIC ENTERPRISE)
+
+We simulate an organization with 3 zones:
+
+VLAN10 — Employee Network (User PCs)
+VLAN20 — Finance Network (Sensitive)
+VLAN30 — Server Network (Critical Services)
+
+Attack simulation:
+
+An attacker compromises Employee PC and tries to reach Finance and Servers.
+
+====================================================
+
+TOPOLOGY
+
+PC-A (Attacker) ? Switch ? Router (Inter-VLAN) ? Internal VLANs
+
+Devices:
+
+1 Router (Router-on-a-stick)
+
+1 Switch
+
+3 PCs (one per VLAN)
+
+Optional: 1 Server
+
+====================================================
+
+VLAN + IP ADDRESSING PLAN
+
+VLAN Purpose Subnet Host IP
+
+10 Employee 192.168.10.0/24 PC-A = 192.168.10.10
+20 Finance 192.168.20.0/24 PC-F = 192.168.20.10
+30 Servers 192.168.30.0/24 PC-S = 192.168.30.10
+
+Gateways:
+
+192.168.10.1
+192.168.20.1
+192.168.30.1
+
+====================================================
+
+LAB BUILD STEPS
+
+====================================================
+
+STEP 1 — CREATE VLANs ON SWITCH
+
+Switch CLI:
+
+enable
+configure terminal
+
+vlan 10
+name EMPLOYEE
+exit
+
+vlan 20
+name FINANCE
+exit
+
+vlan 30
+name SERVERS
+exit
+
+====================================================
+
+STEP 2 — ASSIGN PORTS
+
+Assume:
+
+PC-A on Fa0/1
+PC-F on Fa0/2
+PC-S on Fa0/3
+
+configure terminal
+
+interface fa0/1
+switchport mode access
+switchport access vlan 10
+exit
+
+interface fa0/2
+switchport mode access
+switchport access vlan 20
+exit
+
+interface fa0/3
+switchport mode access
+switchport access vlan 30
+exit
+
+====================================================
+
+STEP 3 — CONFIGURE TRUNK TO ROUTER
+
+Router connected on Fa0/24:
+
+interface fa0/24
+switchport mode trunk
+exit
+
+====================================================
+
+STEP 4 — ROUTER-ON-A-STICK CONFIG
+
+Router CLI:
+
+enable
+configure terminal
+
+interface g0/0
+no shutdown
+exit
+
+interface g0/0.10
+encapsulation dot1Q 10
+ip address 192.168.10.1 255.255.255.0
+exit
+
+interface g0/0.20
+encapsulation dot1Q 20
+ip address 192.168.20.1 255.255.255.0
+exit
+
+interface g0/0.30
+encapsulation dot1Q 30
+ip address 192.168.30.1 255.255.255.0
+exit
+
+====================================================
+
+STEP 5 — CONFIGURE PCs
+
+PC-A:
+
+IP: 192.168.10.10
+GW: 192.168.10.1
+
+PC-F:
+
+IP: 192.168.20.10
+GW: 192.168.20.1
+
+PC-S:
+
+IP: 192.168.30.10
+GW: 192.168.30.1
+
+====================================================
+
+ATTACK SIMULATION (LATERAL MOVEMENT)
+
+====================================================
+
+Attacker is on PC-A (Employee VLAN10)
+
+STEP 1 — Network Discovery Attempt
+
+From PC-A:
+
+ping 192.168.20.10
+ping 192.168.30.10
+
+Expected (before security): SUCCESS
+
+This shows lateral movement is possible.
+
+SOC meaning:
+
+Unrestricted VLAN routing = high risk.
+
+====================================================
+
+APPLY SEGMENTATION CONTROL (ACL DEFENSE)
+
+====================================================
+
+Security Policy:
+
+Employees (VLAN10) must NOT access Finance (VLAN20)
+
+Employees must NOT access Servers (VLAN30)
+
+Finance can access Servers (allowed)
+
+So we block VLAN10 lateral movement.
+
+====================================================
+
+CONFIGURE ACL TO STOP ATTACKER
+
+====================================================
+
+Router CLI:
+
+enable
+configure terminal
+
+access-list 150 deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255
+
+access-list 150 deny ip 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255
+
+access-list 150 permit ip any any
+
+Apply ACL inbound on VLAN10 interface
+
+interface g0/0.10
+ip access-group 150 in
+exit
+
+end
+write memory
+
+====================================================
+
+RETEST ATTACK AFTER DEFENSE
+
+====================================================
+
+From PC-A:
+
+ping 192.168.20.10
+ping 192.168.30.10
+
+Expected: FAIL
+
+Attacker cannot move laterally.
+
+From Finance PC-F:
+
+ping 192.168.30.10
+
+Expected: SUCCESS
+
+Finance still has access.
+
+====================================================
+
+SOC EVIDENCE COLLECTION
+
+====================================================
+
+On router:
+
+show access-lists
+
+You should see:
+
+deny statements hitcount increasing
+
+This is equivalent to firewall deny logs.
+
+====================================================
+
+WHAT THIS LAB PROVES (INTERVIEW READY)
+
+====================================================
+
+“I simulated lateral movement from an employee VLAN into sensitive finance and server VLANs. Then I enforced segmentation using router ACLs to block unauthorized east-west traffic, validating controls through hit-count monitoring.”
+
+That is a strong SOC-style networking project.
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+Save:
+
+Topology screenshot
+
+Successful ping before ACL
+
+Failed ping after ACL
+
+show access-lists output
+
+Short incident-style explanation:
+
+“Unauthorized VLAN10 access attempt blocked.”
+
+================================

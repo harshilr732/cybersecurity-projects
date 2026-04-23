@@ -1,0 +1,287 @@
+PRACTICAL 10
+DNS BASICS (NAME RESOLUTION IN NETWORKS)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 10 — DNS Basics
+Tool: Cisco Packet Tracer
+Level: Beginner–Intermediate
+Topic: Domain Name Resolution, DNS Server Configuration
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+What DNS is and why it is required
+
+Difference between IP communication and name-based communication
+
+Configuring a DNS server in Packet Tracer
+
+Testing DNS resolution from a client PC
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+DNS is one of the most important protocols for SOC monitoring.
+
+SOC relevance:
+
+Malware uses DNS for Command-and-Control (C2) communication
+
+DNS tunneling is a known data-exfiltration technique
+
+Suspicious domain lookups are high-value alerts
+
+DNS logs are key in incident investigations
+
+Understanding DNS is mandatory for detection work.
+
+====================================================
+
+TOPOLOGY
+
+We build a simple LAN with a DNS server.
+
+Topology:
+
+PC1 (Client) ? Switch ? Server (DNS)
+
+Devices Required:
+
+1 Switch (2960)
+
+1 PC
+
+1 Server (DNS Server)
+
+====================================================
+
+IP ADDRESSING PLAN
+
+Network: 192.168.1.0/24
+
+Device IP Address Subnet Mask Gateway
+
+PC1 192.168.1.10 255.255.255.0 192.168.1.1 (optional)
+Server 192.168.1.100 255.255.255.0 192.168.1.1 (optional)
+
+DNS Server IP: 192.168.1.100
+
+Note: Router is not required for same LAN testing.
+
+====================================================
+
+LAB IMPLEMENTATION STEPS
+
+====================================================
+
+STEP 1 — PLACE DEVICES
+
+In Packet Tracer:
+
+1 Switch
+
+1 PC (PC1)
+
+1 Server
+
+Arrange:
+
+PC1 ? Switch ? Server
+
+====================================================
+
+STEP 2 — CONNECT DEVICES
+
+Use Copper Straight-Through cables:
+
+PC1 Fa0 ? Switch Fa0/1
+Server Fa0 ? Switch Fa0/2
+
+Wait for green lights.
+
+====================================================
+
+STEP 3 — CONFIGURE IP ADDRESSES
+
+Configure PC1
+
+PC1 ? Desktop ? IP Configuration
+
+IP Address: 192.168.1.10
+Subnet Mask: 255.255.255.0
+
+Configure Server
+
+Server ? Desktop ? IP Configuration
+
+IP Address: 192.168.1.100
+Subnet Mask: 255.255.255.0
+
+====================================================
+
+STEP 4 — ENABLE DNS SERVICE ON SERVER
+
+Click Server
+
+Go to:
+
+Services ? DNS
+
+Turn DNS Service ON
+
+====================================================
+
+STEP 5 — ADD DNS RECORDS
+
+In the DNS service page:
+
+Add a domain entry:
+
+Name: www.agrismart.com
+
+Address: 192.168.1.100
+
+Click Add
+
+This means:
+
+If client requests www.agrismart.com
+, DNS replies with 192.168.1.100
+
+You can add more records, for example:
+
+Name: www.chatbuddy.com
+
+Address: 192.168.1.100
+
+====================================================
+
+STEP 6 — CONFIGURE DNS SETTINGS ON PC1
+
+PC1 must know which DNS server to query.
+
+PC1 ? Desktop ? IP Configuration
+
+Set:
+
+DNS Server: 192.168.1.100
+
+====================================================
+
+VERIFICATION AND TESTING
+
+====================================================
+
+STEP 1 — TEST BASIC CONNECTIVITY
+
+From PC1:
+
+Desktop ? Command Prompt
+
+ping 192.168.1.100
+
+Expected: SUCCESS
+
+STEP 2 — TEST DNS RESOLUTION
+
+On PC1 Command Prompt, type:
+
+nslookup www.agrismart.com
+
+Expected Output:
+
+Name: www.agrismart.com
+
+Address: 192.168.1.100
+
+STEP 3 — TEST USING WEB BROWSER
+
+PC1 ? Desktop ? Web Browser
+
+In URL bar, type:
+
+www.agrismart.com
+
+Expected:
+
+Server page opens (default Packet Tracer HTTP page)
+
+Note: For full browser success, HTTP service must also be ON.
+
+Enable it:
+
+Server ? Services ? HTTP ? ON
+
+====================================================
+
+SOC SECURITY INSIGHT
+
+====================================================
+
+DNS is often abused because:
+
+Attackers register fake domains
+
+Malware calls home via DNS lookups
+
+DNS traffic is usually allowed through firewalls
+
+SOC analysts monitor:
+
+Unusual domain frequency
+
+Newly registered domains
+
+DNS queries to suspicious TLDs
+
+====================================================
+
+TROUBLESHOOTING
+
+====================================================
+
+If DNS does not work:
+
+DNS service not enabled
+
+Record not added correctly
+
+PC DNS server field empty
+
+Server IP wrong
+
+No connectivity
+
+Commands:
+
+ping DNS server
+nslookup domain
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+Save:
+
+Topology screenshot
+
+DNS record screenshot (server DNS page)
+
+Output of nslookup command
+
+Successful ping PC1 ? Server
+
+Web browser test result (optional)
+
+Conclusion:
+
+“This lab demonstrated DNS name resolution by configuring a DNS server and validating domain-to-IP mapping using nslookup.”

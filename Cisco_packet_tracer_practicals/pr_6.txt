@@ -1,0 +1,315 @@
+PRACTICAL 6
+INTER-VLAN ROUTING (ROUTER-ON-A-STICK)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 6 — Inter-VLAN Routing using Router-on-a-Stick
+Tool: Cisco Packet Tracer
+Level: Intermediate
+Topic: VLAN Communication via Router Subinterfaces
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+Why VLANs cannot communicate by default
+
+How routing enables communication between VLANs
+
+Router-on-a-Stick concept (single trunk link + subinterfaces)
+
+Testing inter-VLAN connectivity
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+Inter-VLAN routing is where security boundaries are enforced.
+
+SOC relevance:
+
+VLAN-to-VLAN traffic is often controlled by ACLs/firewalls
+
+Lateral movement happens through routing paths
+
+Misconfigured routing can expose sensitive VLANs
+
+Understanding this is mandatory before ACL labs.
+
+====================================================
+
+TOPOLOGY
+
+We use one router and one switch with two VLANs:
+
+PC1 (VLAN10) -+
+¦
+Switch --- Router (Router-on-a-Stick)
+¦
+PC2 (VLAN20) -+
+
+Devices Required:
+
+1 Router (1941/2911)
+
+1 Switch (2960)
+
+2 PCs
+
+====================================================
+
+VLAN AND IP ADDRESSING PLAN
+
+We will create:
+
+VLAN 10 ? 192.168.10.0/24
+VLAN 20 ? 192.168.20.0/24
+
+Device VLAN IP Address Gateway
+
+PC1 10 192.168.10.10 192.168.10.1
+
+PC2 20 192.168.20.10 192.168.20.1
+
+Router Subinterface for VLAN10:
+G0/0.10 ? 192.168.10.1
+
+Router Subinterface for VLAN20:
+G0/0.20 ? 192.168.20.1
+
+====================================================
+
+LAB IMPLEMENTATION STEPS
+
+====================================================
+
+STEP 1 — PLACE DEVICES
+
+In Packet Tracer:
+
+1 Switch
+
+1 Router
+
+2 PCs
+
+Arrange:
+
+PC1 ? Switch ? Router
+PC2 ? Switch
+
+====================================================
+
+STEP 2 — CONNECT DEVICES
+
+Use Copper Straight-Through:
+
+PC1 Fa0 ? Switch Fa0/1
+PC2 Fa0 ? Switch Fa0/2
+Switch Fa0/24 ? Router G0/0
+
+====================================================
+
+STEP 3 — CONFIGURE VLANs ON SWITCH
+
+Switch CLI:
+
+enable
+configure terminal
+
+Create VLAN 10
+
+vlan 10
+name HR
+exit
+
+Create VLAN 20
+
+vlan 20
+name FINANCE
+exit
+
+====================================================
+
+STEP 4 — ASSIGN ACCESS PORTS TO VLANs
+
+Assign PC1 port to VLAN10
+
+interface fa0/1
+switchport mode access
+switchport access vlan 10
+exit
+
+Assign PC2 port to VLAN20
+
+interface fa0/2
+switchport mode access
+switchport access vlan 20
+exit
+
+====================================================
+
+STEP 5 — CONFIGURE TRUNK PORT TO ROUTER
+
+Router must receive both VLANs, so Fa0/24 must be trunk.
+
+On Switch:
+
+interface fa0/24
+switchport mode trunk
+exit
+
+Verify:
+
+show interfaces trunk
+
+====================================================
+
+STEP 6 — CONFIGURE PC IP ADDRESSES
+
+PC1
+
+IP: 192.168.10.10
+Mask: 255.255.255.0
+Gateway: 192.168.10.1
+
+PC2
+
+IP: 192.168.20.10
+Mask: 255.255.255.0
+Gateway: 192.168.20.1
+
+====================================================
+
+STEP 7 — CONFIGURE ROUTER-ON-A-STICK
+
+Now configure router subinterfaces.
+
+Router CLI:
+
+enable
+configure terminal
+
+Enable physical interface
+
+interface gigabitEthernet0/0
+no shutdown
+exit
+
+Subinterface for VLAN 10
+
+interface gigabitEthernet0/0.10
+encapsulation dot1Q 10
+ip address 192.168.10.1 255.255.255.0
+exit
+
+Subinterface for VLAN 20
+
+interface gigabitEthernet0/0.20
+encapsulation dot1Q 20
+ip address 192.168.20.1 255.255.255.0
+exit
+
+Save:
+
+end
+write memory
+
+====================================================
+
+VERIFICATION AND TESTING
+
+====================================================
+
+STEP 1 — CHECK ROUTER SUBINTERFACES
+
+On router:
+
+show ip interface brief
+
+Expected:
+
+G0/0.10 ? up/up ? 192.168.10.1
+G0/0.20 ? up/up ? 192.168.20.1
+
+====================================================
+
+STEP 2 — TEST VLAN ISOLATION BEFORE ROUTING (Concept)
+
+Without router subinterfaces, VLAN10 and VLAN20 cannot communicate.
+
+Now routing is enabled.
+
+====================================================
+
+STEP 3 — PING BETWEEN VLANs
+
+From PC1:
+
+ping 192.168.20.10
+
+Expected: SUCCESS
+
+From PC2:
+
+ping 192.168.10.10
+
+Expected: SUCCESS
+
+This confirms inter-VLAN routing works.
+
+====================================================
+
+TROUBLESHOOTING (COMMON ERRORS)
+
+====================================================
+
+If ping fails:
+
+Trunk not configured on Fa0/24
+
+Wrong VLAN ID in encapsulation dot1Q
+
+Wrong gateway set on PCs
+
+Router physical interface shutdown
+
+Commands:
+
+Switch:
+
+show vlan brief
+show interfaces trunk
+
+Router:
+
+show ip interface brief
+show running-config
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+Save:
+
+Topology screenshot
+
+Output of show vlan brief
+
+Output of show interfaces trunk
+
+Output of show ip interface brief (router)
+
+Successful ping between VLAN10 and VLAN20
+
+Conclusion:
+
+“This lab implemented Router-on-a-Stick using 802.1Q subinterfaces to enable routing between VLANs.”
+
+====================================================

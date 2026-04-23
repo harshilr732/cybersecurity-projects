@@ -1,0 +1,275 @@
+PRACTICAL 3
+ARP BEHAVIOR AND TROUBLESHOOTING (CISCO PACKET TRACER)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 3 — ARP Behavior and Troubleshooting
+Tool: Cisco Packet Tracer
+Level: Beginner
+Topic: ARP Resolution, ARP Table, Layer 2–Layer 3 Mapping
+
+====================================================
+
+OBJECTIVE
+
+To understand and verify:
+
+What ARP does in a LAN
+
+How IP addresses map to MAC addresses
+
+How ARP requests and replies work
+
+How to view and clear ARP tables
+
+How ARP issues cause connectivity problems
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+ARP is one of the most exploited protocols in internal attacks.
+
+SOC analysts must understand ARP to detect:
+
+ARP spoofing / MITM attempts
+
+Rogue devices impersonating gateways
+
+Suspicious MAC-IP mismatches
+
+Lateral movement setup inside LAN
+
+ARP anomalies are high-value internal alerts.
+
+====================================================
+
+TOPOLOGY
+
+Use the same LAN setup:
+
+PC1 ? Switch ? PC2
+
+Devices Required:
+
+1 Switch (2960)
+
+2 PCs
+
+====================================================
+
+IP ADDRESSING PLAN
+
+Network: 192.168.1.0/24
+
+Device IP Address Subnet Mask
+
+PC1 192.168.1.10 255.255.255.0
+PC2 192.168.1.20 255.255.255.0
+
+====================================================
+
+ARP CONCEPT (IMPORTANT)
+
+ARP = Address Resolution Protocol
+
+Purpose:
+
+When PC1 wants to send traffic to PC2:
+
+PC1 knows PC2’s IP address
+
+PC1 does NOT know PC2’s MAC address
+
+ARP is used to discover the MAC address
+
+ARP Process:
+
+ARP Request (Broadcast)
+
+“Who has 192.168.1.20?”
+
+ARP Reply (Unicast)
+
+“I am 192.168.1.20, here is my MAC address.”
+
+PC1 stores the mapping in its ARP cache.
+
+====================================================
+
+LAB IMPLEMENTATION STEPS
+
+====================================================
+
+STEP 1 — VERIFY INITIAL CONNECTIVITY
+
+From PC1:
+
+Desktop ? Command Prompt
+
+Run:
+
+ping 192.168.1.20
+
+Ensure ping works before ARP testing.
+
+====================================================
+
+STEP 2 — CHECK ARP TABLE BEFORE COMMUNICATION
+
+On PC1 Command Prompt, run:
+
+arp -a
+
+Expected Result:
+
+ARP table may be empty or incomplete.
+
+Because no IP-to-MAC resolution has happened yet.
+
+====================================================
+
+STEP 3 — GENERATE ARP RESOLUTION
+
+Now ping again:
+
+ping 192.168.1.20
+
+This forces ARP resolution.
+
+====================================================
+
+STEP 4 — VIEW ARP TABLE AFTER PING
+
+Run again on PC1:
+
+arp -a
+
+Expected Output Example:
+
+Internet Address Physical Address
+
+192.168.1.20 xx-xx-xx-xx-xx-xx
+
+This confirms:
+
+PC1 learned PC2’s MAC address.
+
+====================================================
+
+ARP PACKET OBSERVATION (SIMULATION MODE)
+
+====================================================
+
+This is the best part of the lab.
+
+STEP 1 — Switch to Simulation Mode
+
+Bottom right:
+
+Realtime ? Simulation
+
+STEP 2 — Set Filters
+
+Click Edit Filters
+
+Select only:
+
+ARP
+ICMP
+
+STEP 3 — Send Ping Again
+
+From PC1:
+
+ping 192.168.1.20
+
+STEP 4 — Observe Packet Flow
+
+You will see:
+
+ARP Request (Broadcast)
+
+PC1 ? Switch ? Flooded to all ports
+
+ARP Reply (Unicast)
+
+PC2 ? PC1
+
+ICMP Echo Request/Reply (Ping)
+
+After MAC resolution is complete.
+
+This proves ARP happens before ping traffic.
+
+====================================================
+
+TROUBLESHOOTING ARP ISSUES
+
+====================================================
+
+Scenario: ARP Cache Problem
+
+Sometimes stale ARP entries cause issues.
+
+STEP 1 — Clear ARP Cache on PC1
+
+On PC1:
+
+arp -d
+
+(This clears ARP table)
+
+STEP 2 — Verify ARP Table Cleared
+
+arp -a
+
+Should show no entries.
+
+STEP 3 — Ping Again
+
+ping 192.168.1.20
+
+ARP will rebuild automatically.
+
+====================================================
+
+SOC-STYLE ATTACK INSIGHT (INTERVIEW POINT)
+
+====================================================
+
+ARP has no authentication.
+
+An attacker can send fake ARP replies:
+
+“I am the gateway”
+
+This is ARP spoofing ? MITM attack.
+
+That is why ARP monitoring is important in SOC.
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+You must save:
+
+Screenshot of topology
+
+Output of arp -a before ping
+
+Output of arp -a after ping
+
+Simulation view showing ARP request + reply
+
+Successful ping output
+
+Conclusion statement:
+
+“This lab demonstrated ARP’s role in mapping IP addresses to MAC addresses and how ARP resolution occurs before ICMP communication.”
+
+==================================

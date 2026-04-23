@@ -1,0 +1,315 @@
+PRACTICAL 8
+NAT (INSIDE vs OUTSIDE) — BASIC NETWORK ADDRESS TRANSLATION
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 8 — NAT Configuration (Inside vs Outside)
+Tool: Cisco Packet Tracer
+Level: Intermediate
+Topic: NAT, Private-to-Public Translation, Internet Access Simulation
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+What NAT is and why it is required
+
+Difference between inside and outside networks
+
+Configuring NAT on a router
+
+Allowing internal hosts to reach an external network
+
+Verifying NAT translation tables
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+NAT is extremely important in security monitoring:
+
+Internal private IPs are hidden behind public IPs
+
+SOC analysts must interpret NAT logs to trace attackers
+
+NAT affects attribution in incident response
+
+Misconfigured NAT can expose internal networks
+
+Many investigations require mapping:
+
+Public IP ? Internal Host
+
+====================================================
+
+TOPOLOGY
+
+We simulate an internal LAN accessing an external network.
+
+Topology:
+
+PC1 (Inside LAN) ? Switch ? Router ? Cloud/Server (Outside Network)
+
+Devices Required:
+
+1 Router
+
+1 Switch
+
+1 PC (inside host)
+
+1 Server (external network simulation)
+
+====================================================
+
+IP ADDRESSING PLAN
+
+We define two zones:
+
+INSIDE NETWORK (Private)
+
+Network: 192.168.10.0/24
+
+PC1: 192.168.10.10
+Gateway: 192.168.10.1
+
+Router G0/0 (Inside): 192.168.10.1
+
+OUTSIDE NETWORK (Public Simulation)
+
+Network: 200.1.1.0/24
+
+Router G0/1 (Outside): 200.1.1.1
+Server: 200.1.1.10
+
+====================================================
+
+LAB IMPLEMENTATION STEPS
+
+====================================================
+
+STEP 1 — PLACE DEVICES
+
+In Packet Tracer, add:
+
+Router (1941/2911)
+
+Switch (2960)
+
+PC1
+
+Server
+
+Arrange:
+
+PC1 ? Switch ? Router ? Server
+
+====================================================
+
+STEP 2 — CONNECT DEVICES
+
+Use Copper Straight-Through:
+
+PC1 Fa0 ? Switch Fa0/1
+Switch Fa0/2 ? Router G0/0
+Router G0/1 ? Server Fa0
+
+Wait for green link lights.
+
+====================================================
+
+STEP 3 — CONFIGURE PC1 (INSIDE HOST)
+
+Click PC1 ? Desktop ? IP Configuration
+
+IP Address: 192.168.10.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.10.1
+
+====================================================
+
+STEP 4 — CONFIGURE SERVER (OUTSIDE HOST)
+
+Click Server ? Desktop ? IP Configuration
+
+IP Address: 200.1.1.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 200.1.1.1
+
+====================================================
+
+STEP 5 — CONFIGURE ROUTER INTERFACES
+
+Router CLI:
+
+enable
+configure terminal
+
+Inside Interface (LAN)
+
+interface gigabitEthernet0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+Outside Interface (Public)
+
+interface gigabitEthernet0/1
+ip address 200.1.1.1 255.255.255.0
+no shutdown
+exit
+
+====================================================
+
+STEP 6 — TEST CONNECTIVITY BEFORE NAT
+
+From PC1:
+
+ping 200.1.1.10
+
+In Packet Tracer, it may succeed already because routing exists.
+
+But NAT is required in real-world public internet scenarios.
+
+We will still configure NAT properly.
+
+====================================================
+
+NAT CONFIGURATION (PAT OVERLOAD)
+
+====================================================
+
+We will configure NAT Overload (many-to-one translation).
+
+STEP 1 — Define Inside and Outside Interfaces
+
+Router CLI:
+
+configure terminal
+
+interface gigabitEthernet0/0
+ip nat inside
+exit
+
+interface gigabitEthernet0/1
+ip nat outside
+exit
+
+STEP 2 — Create Access List for Inside Network
+
+access-list 1 permit 192.168.10.0 0.0.0.255
+
+STEP 3 — Enable NAT Overload Using Outside Interface IP
+
+ip nat inside source list 1 interface gigabitEthernet0/1 overload
+
+This means:
+
+All inside private hosts will translate to 200.1.1.1 when going outside.
+
+Save:
+
+end
+write memory
+
+====================================================
+
+VERIFICATION AND TESTING
+
+====================================================
+
+STEP 1 — Ping External Server
+
+From PC1:
+
+ping 200.1.1.10
+
+Expected: SUCCESS
+
+STEP 2 — Check NAT Translation Table
+
+On router:
+
+show ip nat translations
+
+Expected Output Example:
+
+Inside Local Inside Global Outside Local Outside Global
+192.168.10.10 200.1.1.1 200.1.1.10 200.1.1.10
+
+Meaning:
+
+PC1 private IP is translated into router’s public IP.
+
+STEP 3 — Check NAT Statistics
+
+show ip nat statistics
+
+This shows number of active translations.
+
+====================================================
+
+SOC ANALYST INSIGHT
+
+====================================================
+
+If an attack is seen from:
+
+200.1.1.1
+
+SOC must use NAT logs to determine:
+
+Which internal host actually generated the traffic.
+
+NAT complicates attribution.
+
+This is why NAT translation evidence is important.
+
+====================================================
+
+TROUBLESHOOTING
+
+====================================================
+
+If NAT does not work:
+
+Interfaces not marked inside/outside
+
+Wrong ACL network
+
+NAT overload command incorrect
+
+Interface shutdown
+
+Commands:
+
+show ip interface brief
+show running-config
+show ip nat translations
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+Save:
+
+Topology screenshot
+
+NAT configuration commands
+
+Successful ping PC1 ? Server
+
+Output of:
+
+show ip nat translations
+show ip nat statistics
+
+Conclusion:
+
+“This lab demonstrated NAT Overload, translating private internal IPs into a public IP for external communication.”

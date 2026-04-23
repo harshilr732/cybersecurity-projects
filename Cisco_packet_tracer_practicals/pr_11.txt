@@ -1,0 +1,314 @@
+PRACTICAL 11
+SIMPLE FIREWALL RULES (BASIC TRAFFIC FILTERING)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 11 — Simple Firewall Rules
+Tool: Cisco Packet Tracer
+Level: Intermediate
+Topic: Basic Firewall Policy Using ACL + Service Blocking
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+What firewall rules mean in real networks
+
+How routers enforce firewall-like filtering
+
+Blocking specific services (HTTP, ICMP, etc.)
+
+Allowing only required traffic
+
+Testing security controls using real traffic
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+Firewalls are core security devices.
+
+SOC relevance:
+
+Firewall denies are common alert sources
+
+Blocked traffic helps detect scanning and lateral movement
+
+Misconfigured firewall rules cause outages
+
+Analysts must interpret allow/deny behavior
+
+This lab simulates a basic enterprise firewall policy.
+
+====================================================
+
+TOPOLOGY
+
+We reuse a simple network:
+
+PC1 (User) ? Switch ? Router (Firewall) ? Switch ? Server (Web + DNS)
+
+Devices Required:
+
+1 Router
+
+2 Switches
+
+1 PC
+
+1 Server
+
+====================================================
+
+IP ADDRESSING PLAN
+
+LAN 1 (User Network)
+
+PC1: 192.168.10.10
+Gateway: 192.168.10.1
+
+LAN 2 (Server Network)
+
+Server: 192.168.20.100
+Gateway: 192.168.20.1
+
+Router Interfaces
+
+G0/0 ? 192.168.10.1
+G0/1 ? 192.168.20.1
+
+====================================================
+
+BASE CONFIGURATION
+
+====================================================
+
+STEP 1 — CONNECT DEVICES
+
+PC1 ? Switch1 ? Router ? Switch2 ? Server
+
+Use straight-through cables.
+
+STEP 2 — CONFIGURE ROUTER INTERFACES
+
+Router CLI:
+
+enable
+configure terminal
+
+interface g0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+interface g0/1
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+
+end
+write memory
+
+STEP 3 — CONFIGURE PC AND SERVER IP
+
+PC1:
+
+IP: 192.168.10.10
+Mask: 255.255.255.0
+Gateway: 192.168.10.1
+
+Server:
+
+IP: 192.168.20.100
+Mask: 255.255.255.0
+Gateway: 192.168.20.1
+
+====================================================
+
+VERIFY CONNECTIVITY BEFORE FIREWALL
+
+====================================================
+
+From PC1:
+
+ping 192.168.20.100
+
+Expected: SUCCESS
+
+Also test browser:
+
+PC1 ? Web Browser ? http://192.168.20.100
+
+Expected: Server page opens (HTTP ON)
+
+This proves traffic is allowed initially.
+
+====================================================
+
+FIREWALL POLICY FOR THIS LAB
+
+====================================================
+
+We want to enforce:
+
+Allow only ICMP ping
+
+Block HTTP web access
+
+Everything else denied by default
+
+So:
+
+Ping should work
+Web browsing should fail
+
+This simulates a locked-down server network.
+
+====================================================
+
+CONFIGURE FIREWALL RULES (ACL)
+
+====================================================
+
+STEP 1 — CREATE EXTENDED ACL
+
+Router CLI:
+
+enable
+configure terminal
+
+ACL 110 Rules
+
+access-list 110 permit icmp any host 192.168.20.100
+
+access-list 110 deny tcp any host 192.168.20.100 eq 80
+
+access-list 110 deny ip any any
+
+Explanation:
+
+Permit ping only
+
+Deny HTTP traffic
+
+Deny everything else
+
+====================================================
+
+STEP 2 — APPLY ACL TO SERVER-SIDE INTERFACE
+
+Apply inbound on G0/1:
+
+interface gigabitEthernet0/1
+ip access-group 110 in
+exit
+
+Save:
+
+end
+write memory
+
+====================================================
+
+TESTING FIREWALL BEHAVIOR
+
+====================================================
+
+STEP 1 — TEST PING (SHOULD WORK)
+
+From PC1:
+
+ping 192.168.20.100
+
+Expected: SUCCESS
+
+STEP 2 — TEST HTTP (SHOULD FAIL)
+
+From PC1:
+
+Open Web Browser ? http://192.168.20.100
+
+Expected: Page will NOT load
+
+HTTP is blocked.
+
+STEP 3 — CHECK ACL HIT COUNTS
+
+On router:
+
+show access-lists
+
+Expected:
+
+permit icmp … (hit count increases)
+deny tcp eq 80 … (hit count increases)
+
+This is firewall evidence.
+
+====================================================
+
+SOC SECURITY INSIGHT
+
+====================================================
+
+This is how SOC analysts interpret firewall logs:
+
+Ping allowed ? basic reachability
+
+HTTP blocked ? service protected
+
+Deny counters rising ? attempted access
+
+This is also how attackers detect filtering:
+
+ICMP works
+
+TCP ports blocked
+
+====================================================
+
+TROUBLESHOOTING
+
+====================================================
+
+If ping fails:
+
+Rule order incorrect
+
+ACL applied on wrong interface
+
+Missing permit ICMP
+
+Remember: ACLs are processed top-down.
+
+Use:
+
+show running-config
+show ip interface g0/1
+show access-lists
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+Save:
+
+Topology screenshot
+
+Successful ping output
+
+Failed browser HTTP test
+
+show access-lists output with hit counts
+
+Router ACL configuration
+
+Conclusion:
+
+“This lab demonstrated firewall-like filtering using ACLs to allow ICMP while blocking HTTP access to a protected server.”

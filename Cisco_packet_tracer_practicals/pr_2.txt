@@ -1,0 +1,267 @@
+PRACTICAL 2
+SWITCH FUNDAMENTALS (MAC TABLE, FLOODING, LEARNING)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 2 — Switch Fundamentals
+Tool: Cisco Packet Tracer
+Level: Beginner
+Topic: Layer 2 Switching, MAC Learning, Flooding Behavior
+
+====================================================
+
+OBJECTIVE
+
+To understand how a switch works internally by observing:
+
+MAC address learning
+
+Flooding of unknown unicast frames
+
+Forwarding based on MAC table entries
+
+Viewing the MAC address table using switch commands
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+Switch behavior is critical for SOC because:
+
+Attackers exploit Layer 2 flooding and spoofing
+
+MAC table anomalies can indicate suspicious devices
+
+Understanding switching is required for VLAN security later
+
+This is the base for detecting:
+
+Rogue devices
+
+ARP spoofing setups
+
+Lateral movement inside LAN
+
+====================================================
+
+TOPOLOGY
+
+For this lab, we use a simple LAN:
+
+PC1 ? Switch ? PC2
+
+Devices Required:
+
+1 Switch (Cisco 2960)
+
+2 PCs
+
+====================================================
+
+IP ADDRESSING PLAN
+
+Since this is Layer 2 learning, both PCs must be in the same subnet.
+
+Network: 192.168.1.0/24
+
+Device IP Address Subnet Mask
+
+PC1 192.168.1.10 255.255.255.0
+PC2 192.168.1.20 255.255.255.0
+
+Default Gateway: Not needed (same LAN)
+
+====================================================
+
+LAB IMPLEMENTATION STEPS
+
+====================================================
+
+STEP 1 — PLACE DEVICES
+
+Open Packet Tracer
+
+Drag and drop:
+
+PC1
+
+Switch (2960)
+
+PC2
+
+Arrange:
+
+PC1 ? Switch ? PC2
+
+====================================================
+
+STEP 2 — CONNECT DEVICES
+
+Use Copper Straight-Through cables:
+
+PC1 FastEthernet0 ? Switch FastEthernet0/1
+
+PC2 FastEthernet0 ? Switch FastEthernet0/2
+
+Wait for green link lights.
+
+====================================================
+
+STEP 3 — CONFIGURE IP ADDRESSES
+
+Configure PC1:
+
+PC1 ? Desktop ? IP Configuration
+
+IP Address: 192.168.1.10
+Subnet Mask: 255.255.255.0
+
+Configure PC2:
+
+PC2 ? Desktop ? IP Configuration
+
+IP Address: 192.168.1.20
+Subnet Mask: 255.255.255.0
+
+====================================================
+
+KEY EXPERIMENT: MAC LEARNING PROCESS
+
+====================================================
+
+STEP 1 — CHECK SWITCH MAC TABLE (INITIAL STATE)
+
+Click Switch
+
+Go to CLI
+
+Type:
+
+enable
+show mac address-table
+
+Expected Result:
+
+The table will be empty or have very few entries.
+
+Because the switch has not learned any PC MAC addresses yet.
+
+====================================================
+
+STEP 2 — GENERATE TRAFFIC (PING)
+
+From PC1:
+
+Desktop ? Command Prompt
+
+Run:
+
+ping 192.168.1.20
+
+This sends an Ethernet frame through the switch.
+
+====================================================
+
+STEP 3 — OBSERVE SWITCH LEARNING
+
+Now go back to Switch CLI and run again:
+
+show mac address-table
+
+Expected Output:
+
+You will now see entries like:
+
+VLAN MAC Address Type Port
+
+1 xxxx.xxxx.xxxx DYNAMIC Fa0/1
+1 yyyy.yyyy.yyyy DYNAMIC Fa0/2
+
+Meaning:
+
+Switch learned PC1 MAC on Fa0/1
+
+Switch learned PC2 MAC on Fa0/2
+
+This is called MAC Learning.
+
+====================================================
+
+FLOODING BEHAVIOR (IMPORTANT CONCEPT)
+
+====================================================
+
+When PC1 first sends traffic:
+
+Switch does NOT know PC2 MAC yet
+
+So it FLOODS the frame out all ports except the source port
+
+Once learned:
+
+Switch forwards directly only to the correct port
+
+This is how switches reduce unnecessary traffic.
+
+====================================================
+
+SIMULATION MODE (VISUAL PROOF)
+
+====================================================
+
+To actually see flooding:
+
+Switch to Simulation Mode (bottom right)
+
+Click Edit Filters ? Select only:
+
+ARP
+ICMP
+
+From PC1, ping PC2 again
+
+Observe:
+
+ARP Request is broadcast (flooded)
+
+ICMP goes unicast after MAC is learned
+
+This is the best way to understand switching.
+
+====================================================
+
+VERIFICATION COMMANDS
+
+====================================================
+
+On Switch:
+
+show mac address-table
+
+To clear MAC table (optional):
+
+clear mac address-table dynamic
+
+Then ping again to see learning repeat.
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+You must save:
+
+Screenshot of topology
+
+Ping output (PC1 ? PC2)
+
+Output of:
+
+show mac address-table
+
+Short conclusion:
+
+“This lab demonstrated how switches learn MAC addresses dynamically and flood unknown traffic before forwarding efficiently.”

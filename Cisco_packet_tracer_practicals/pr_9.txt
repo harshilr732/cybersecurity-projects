@@ -1,0 +1,309 @@
+PRACTICAL 9
+DHCP SERVER + DHCP RELAY (IP ADDRESS AUTOMATION)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 9 — DHCP Server and DHCP Relay
+Tool: Cisco Packet Tracer
+Level: Intermediate
+Topic: Dynamic IP Assignment, Centralized DHCP, Relay Agent
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+What DHCP does in a network
+
+Configuring a router as a DHCP server
+
+Assigning IP addresses dynamically to hosts
+
+Understanding why DHCP relay is needed
+
+Configuring DHCP relay (ip helper-address)
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+DHCP is a critical protocol in enterprise networks.
+
+SOC relevance:
+
+Rogue DHCP servers are a common attack technique
+
+DHCP logs help identify devices joining the network
+
+DHCP starvation attacks can cause outages
+
+DHCP relay misconfigurations break connectivity
+
+Understanding DHCP behavior is important for network incident response.
+
+====================================================
+
+TOPOLOGY
+
+We will build two networks separated by a router.
+
+DHCP Server is on Router.
+
+Topology:
+
+PC1 (Client LAN) ? Switch ? Router ? Switch ? PC2 (Remote LAN)
+
+Router provides DHCP for both LANs using relay.
+
+Devices Required:
+
+1 Router (1941/2911)
+
+2 Switches
+
+2 PCs
+
+====================================================
+
+NETWORK AND IP PLAN
+
+We create two subnets:
+
+LAN 1 (Client Network)
+
+Network: 192.168.10.0/24
+Gateway: 192.168.10.1
+
+PC1 will receive IP via DHCP.
+
+LAN 2 (Remote Network)
+
+Network: 192.168.20.0/24
+Gateway: 192.168.20.1
+
+PC2 will receive IP via DHCP relay.
+
+Router Interface Plan:
+
+G0/0 ? 192.168.10.1
+G0/1 ? 192.168.20.1
+
+====================================================
+
+LAB IMPLEMENTATION STEPS
+
+====================================================
+
+STEP 1 — PLACE DEVICES
+
+In Packet Tracer:
+
+Router
+
+Switch1
+
+Switch2
+
+PC1
+
+PC2
+
+Arrange:
+
+PC1 ? Switch1 ? Router ? Switch2 ? PC2
+
+====================================================
+
+STEP 2 — CONNECT DEVICES
+
+Use Copper Straight-Through:
+
+PC1 Fa0 ? Switch1 Fa0/1
+Switch1 Fa0/2 ? Router G0/0
+
+Router G0/1 ? Switch2 Fa0/1
+Switch2 Fa0/2 ? PC2 Fa0
+
+Wait for green lights.
+
+====================================================
+
+STEP 3 — CONFIGURE ROUTER INTERFACES
+
+Router CLI:
+
+enable
+configure terminal
+
+Interface for LAN 1
+
+interface gigabitEthernet0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+Interface for LAN 2
+
+interface gigabitEthernet0/1
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+
+====================================================
+
+CONFIGURE ROUTER AS DHCP SERVER
+
+====================================================
+
+STEP 1 — EXCLUDE GATEWAY ADDRESSES
+
+Router CLI:
+
+ip dhcp excluded-address 192.168.10.1 192.168.10.10
+ip dhcp excluded-address 192.168.20.1 192.168.20.10
+
+This prevents DHCP from assigning gateway/reserved IPs.
+
+STEP 2 — CREATE DHCP POOL FOR LAN 1
+
+ip dhcp pool LAN10
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+dns-server 8.8.8.8
+exit
+
+STEP 3 — CREATE DHCP POOL FOR LAN 2
+
+ip dhcp pool LAN20
+network 192.168.20.0 255.255.255.0
+default-router 192.168.20.1
+dns-server 8.8.8.8
+exit
+
+====================================================
+
+DHCP RELAY CONFIGURATION (KEY PART)
+
+====================================================
+
+DHCP requests are broadcasts and cannot cross routers.
+
+So LAN 2 clients need relay.
+
+STEP — Enable DHCP Relay on Router Interface G0/1
+
+interface gigabitEthernet0/1
+ip helper-address 192.168.10.1
+exit
+
+Explanation:
+
+PC2 sends DHCP Discover
+
+Router relays it to DHCP server address
+
+DHCP server responds back
+
+(In real networks, DHCP server is separate; here router plays both roles.)
+
+====================================================
+
+CONFIGURE PCs AS DHCP CLIENTS
+
+====================================================
+
+STEP 1 — Set PC1 to DHCP
+
+PC1 ? Desktop ? IP Configuration ? Select DHCP
+
+PC1 should receive:
+
+IP: 192.168.10.x
+Gateway: 192.168.10.1
+
+STEP 2 — Set PC2 to DHCP
+
+PC2 ? Desktop ? IP Configuration ? Select DHCP
+
+PC2 should receive:
+
+IP: 192.168.20.x
+Gateway: 192.168.20.1
+
+====================================================
+
+VERIFICATION
+
+====================================================
+
+STEP 1 — CHECK DHCP BINDINGS ON ROUTER
+
+On router:
+
+show ip dhcp binding
+
+This will list leased IP addresses and MAC addresses.
+
+STEP 2 — CHECK DHCP POOL STATUS
+
+show ip dhcp pool
+
+STEP 3 — TEST CONNECTIVITY
+
+From PC1:
+
+ping 192.168.20.x (PC2 address)
+
+From PC2:
+
+ping 192.168.10.x (PC1 address)
+
+Expected: SUCCESS
+
+====================================================
+
+SOC SECURITY INSIGHT
+
+====================================================
+
+DHCP logs are used to identify:
+
+Which device had which IP at what time
+
+Unauthorized devices joining the network
+
+Rogue DHCP activity
+
+Attack Example:
+
+Rogue DHCP server gives attacker-controlled gateway ? MITM.
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+Save:
+
+Topology screenshot
+
+PC1 DHCP-assigned IP screenshot
+
+PC2 DHCP-assigned IP screenshot
+
+Output of:
+
+show ip dhcp binding
+show ip dhcp pool
+
+Successful ping between PCs
+
+Conclusion:
+
+“This lab demonstrated centralized DHCP assignment and DHCP relay using ip helper-address.”
+
+====================================================

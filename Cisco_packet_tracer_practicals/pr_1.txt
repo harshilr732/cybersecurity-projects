@@ -1,0 +1,271 @@
+PRACTICAL 1
+BASIC IP ADDRESSING AND SUBNETTING (CISCO PACKET TRACER)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 1 — Basic IP Addressing and Subnetting
+Tool: Cisco Packet Tracer
+Level: Beginner
+Topic: Layer 3 Addressing + Subnet Separation + Default Gateway
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+IP addressing in two different subnets
+
+Default gateway configuration
+
+Router-based communication between subnets
+
+Connectivity verification using ping
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+This practical builds the foundation for:
+
+Identifying internal vs external IP ranges
+
+Understanding lateral movement across subnets
+
+Reading firewall/ACL rules correctly
+
+Recognizing suspicious traffic sources
+
+Without subnet knowledge, SOC analysis becomes unreliable.
+
+====================================================
+
+TOPOLOGY (MANDATORY)
+
+You will create the following network:
+
+PC1 ? Switch1 ? Router ? Switch2 ? PC2
+
+Devices Required:
+
+1 Router (Cisco 1941 or 2911)
+
+2 Switches (Cisco 2960)
+
+2 PCs
+
+====================================================
+
+NETWORK DESIGN AND IP PLAN
+
+We will use two separate networks:
+
+Network A: 192.168.10.0/24
+Network B: 192.168.20.0/24
+
+IP Address Assignment Table
+
+Device Interface IP Address Subnet Mask Default Gateway
+
+PC1 NIC 192.168.10.10 255.255.255.0 192.168.10.1
+
+Router G0/0 192.168.10.1 255.255.255.0 -
+
+Router G0/1 192.168.20.1 255.255.255.0 -
+
+PC2 NIC 192.168.20.10 255.255.255.0 192.168.20.1
+
+====================================================
+
+LAB IMPLEMENTATION STEPS (PACKET TRACER)
+
+====================================================
+
+STEP 1 — PLACE DEVICES
+
+Open Cisco Packet Tracer
+
+Drag and drop the following devices:
+
+PC1
+
+Switch1 (2960)
+
+Router (1941)
+
+Switch2 (2960)
+
+PC2
+
+Arrange them in this order:
+
+PC1 ? Switch1 ? Router ? Switch2 ? PC2
+
+====================================================
+
+STEP 2 — CONNECT DEVICES
+
+Use Copper Straight-Through cables.
+
+Make these connections:
+
+PC1 FastEthernet0 ? Switch1 FastEthernet0/1
+
+Switch1 FastEthernet0/2 ? Router GigabitEthernet0/0
+
+Router GigabitEthernet0/1 ? Switch2 FastEthernet0/1
+
+Switch2 FastEthernet0/2 ? PC2 FastEthernet0
+
+Wait until all link lights turn green.
+
+====================================================
+
+STEP 3 — CONFIGURE PC IP ADDRESSES
+
+Configure PC1
+
+Click PC1
+
+Go to Desktop ? IP Configuration
+
+Enter:
+
+IP Address: 192.168.10.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.10.1
+
+Configure PC2
+
+Click PC2
+
+Go to Desktop ? IP Configuration
+
+Enter:
+
+IP Address: 192.168.20.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.20.1
+
+====================================================
+
+STEP 4 — CONFIGURE ROUTER INTERFACES
+
+Click Router
+
+Go to CLI
+
+Type the following commands:
+
+Enable configuration mode
+
+enable
+configure terminal
+
+Configure Interface G0/0 (Network A)
+
+interface gigabitEthernet0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+
+Configure Interface G0/1 (Network B)
+
+interface gigabitEthernet0/1
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+
+Save configuration
+
+end
+write memory
+
+====================================================
+
+VERIFICATION AND TESTING
+
+====================================================
+
+STEP 1 — CHECK ROUTER STATUS
+
+On router CLI:
+
+show ip interface brief
+
+Expected Output:
+
+Interface IP Address Status
+
+G0/0 192.168.10.1 up/up
+G0/1 192.168.20.1 up/up
+
+====================================================
+
+STEP 2 — TEST GATEWAY CONNECTIVITY
+
+From PC1 Command Prompt:
+
+ping 192.168.10.1
+
+Expected: Reply received
+
+From PC2 Command Prompt:
+
+ping 192.168.20.1
+
+Expected: Reply received
+
+====================================================
+
+STEP 3 — TEST CROSS-SUBNET CONNECTIVITY
+
+From PC1:
+
+ping 192.168.20.10
+
+Expected: Successful ping
+
+This confirms routing between the two networks.
+
+====================================================
+
+TROUBLESHOOTING (IF PING FAILS)
+
+====================================================
+
+Check the following:
+
+Wrong default gateway on PC
+
+Router interface is still shutdown
+
+Incorrect cable connection
+
+Incorrect IP/subnet mask
+
+Useful router commands:
+
+show running-config
+show ip route
+show ip interface brief
+
+====================================================
+
+LAB OUTPUT / DELIVERABLE
+
+====================================================
+
+You must collect:
+
+Screenshot of the topology
+
+Successful ping from PC1 to PC2
+
+Output of show ip interface brief
+
+Short conclusion statement:
+
+“This lab demonstrated basic IP addressing across two subnets and verified inter-network communication through router interfaces.”

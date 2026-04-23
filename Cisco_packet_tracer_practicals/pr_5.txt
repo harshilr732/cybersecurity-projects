@@ -1,0 +1,313 @@
+PRACTICAL 5
+TRUNKING (802.1Q) AND ALLOWED VLANs (CISCO PACKET TRACER)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 5 — VLAN Trunking (802.1Q)
+Tool: Cisco Packet Tracer
+Level: Beginner–Intermediate
+Topic: Trunk Links, VLAN Transport Between Switches
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+What a trunk port is
+
+Difference between access port and trunk port
+
+How VLANs travel across multiple switches
+
+Configuring 802.1Q trunking
+
+Restricting trunk links using allowed VLANs
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+Trunk links are critical in enterprise networks, but also a major risk if misconfigured.
+
+SOC relevance:
+
+Open trunks can expose multiple VLANs unintentionally
+
+VLAN hopping attacks depend on trunk misconfigurations
+
+Proper VLAN restriction reduces lateral movement paths
+
+Trunk auditing is a real SOC/network security responsibility.
+
+====================================================
+
+TOPOLOGY
+
+We extend Practical 4 into a two-switch environment.
+
+Topology:
+
+PC1, PC2 ? Switch1 ===== Switch2 ? PC3, PC4
+
+Where:
+
+VLAN 10 exists on both switches
+
+VLAN 20 exists on both switches
+
+Switch1–Switch2 link is a trunk
+
+Devices Required:
+
+2 Switches (2960)
+
+4 PCs
+
+====================================================
+
+VLAN AND IP ADDRESSING PLAN
+
+We use the same VLANs:
+
+VLAN 10 ? HR
+VLAN 20 ? Finance
+
+Device VLAN IP Address Subnet Mask
+
+PC1 10 192.168.10.10 255.255.255.0
+PC2 10 192.168.10.20 255.255.255.0
+
+PC3 20 192.168.20.10 255.255.255.0
+PC4 20 192.168.20.20 255.255.255.0
+
+Default Gateway: Blank (no router yet)
+
+====================================================
+
+LAB IMPLEMENTATION STEPS
+
+====================================================
+
+STEP 1 — PLACE DEVICES
+
+Open Packet Tracer
+
+Add:
+
+Switch1
+
+Switch2
+
+PC1, PC2 on Switch1
+
+PC3, PC4 on Switch2
+
+====================================================
+
+STEP 2 — CONNECT DEVICES
+
+PC Connections
+
+PC1 ? Switch1 Fa0/1
+PC2 ? Switch1 Fa0/2
+
+PC3 ? Switch2 Fa0/1
+PC4 ? Switch2 Fa0/2
+
+Switch-to-Switch Connection (Trunk Link)
+
+Switch1 Fa0/24 ? Switch2 Fa0/24
+
+(Use Copper Straight-Through)
+
+Wait for green lights.
+
+====================================================
+
+STEP 3 — CONFIGURE IP ADDRESSES ON PCs
+
+Same as Practical 4.
+
+PC1: 192.168.10.10
+PC2: 192.168.10.20
+PC3: 192.168.20.10
+PC4: 192.168.20.20
+
+====================================================
+
+STEP 4 — CREATE VLANs ON BOTH SWITCHES
+
+You must create VLANs on BOTH switches.
+
+On Switch1 CLI
+
+enable
+configure terminal
+
+vlan 10
+name HR
+exit
+
+vlan 20
+name FINANCE
+exit
+
+On Switch2 CLI
+
+enable
+configure terminal
+
+vlan 10
+name HR
+exit
+
+vlan 20
+name FINANCE
+exit
+
+====================================================
+
+STEP 5 — ASSIGN ACCESS PORTS TO VLANs
+
+Switch1 Port Assignments
+
+interface range fa0/1 - 2
+switchport mode access
+switchport access vlan 10
+exit
+
+Switch2 Port Assignments
+
+interface range fa0/1 - 2
+switchport mode access
+switchport access vlan 20
+exit
+
+====================================================
+
+STEP 6 — CONFIGURE TRUNK PORT BETWEEN SWITCHES
+
+Now configure Fa0/24 on both switches as trunk.
+
+On Switch1
+
+interface fa0/24
+switchport mode trunk
+exit
+
+On Switch2
+
+interface fa0/24
+switchport mode trunk
+exit
+
+By default, trunk allows all VLANs.
+
+====================================================
+
+VERIFICATION
+
+====================================================
+
+STEP 1 — CHECK TRUNK STATUS
+
+On both switches:
+
+show interfaces trunk
+
+Expected:
+
+Port Fa0/24 is trunking
+Encapsulation: 802.1Q
+Allowed VLANs: 1,10,20
+
+====================================================
+
+STEP 2 — TEST VLAN COMMUNICATION ACROSS SWITCHES
+
+Test VLAN 10:
+
+From PC1 (VLAN 10):
+
+ping 192.168.10.20
+
+Expected: SUCCESS (same switch)
+
+Now test across switches (important):
+
+Move one VLAN 10 PC to Switch2 if needed, OR add PC5 in VLAN10 on Switch2.
+
+Right now, VLAN10 exists only on Switch1, VLAN20 only on Switch2.
+
+So cross-switch test will happen in Practical 6.
+
+For trunk proof, we restrict VLANs next.
+
+====================================================
+
+ALLOWED VLAN RESTRICTION (SECURITY CONTROL)
+
+Trunks should NOT carry unnecessary VLANs.
+
+Example: Allow only VLAN 10.
+
+On Switch1
+
+interface fa0/24
+switchport trunk allowed vlan 10
+exit
+
+On Switch2
+
+interface fa0/24
+switchport trunk allowed vlan 10
+exit
+
+Now VLAN 20 will NOT pass across trunk.
+
+Verify:
+
+show interfaces trunk
+
+Allowed VLANs should show only VLAN 10.
+
+====================================================
+
+SOC SECURITY INSIGHT
+
+====================================================
+
+Misconfiguration:
+
+Trunk allowed all VLANs
+
+Attacker gains access to one VLAN
+
+Can potentially hop or reach sensitive VLANs
+
+Proper allowed VLAN restriction reduces attack surface.
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+Save:
+
+Screenshot of topology
+
+Output of:
+
+show interfaces trunk
+
+Output showing allowed VLAN restriction
+
+Brief conclusion
+
+Conclusion:
+
+“This lab demonstrated VLAN trunking between switches using 802.1Q and showed how restricting allowed VLANs improves segmentation security.”

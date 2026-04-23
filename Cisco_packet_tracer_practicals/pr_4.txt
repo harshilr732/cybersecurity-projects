@@ -1,0 +1,299 @@
+PRACTICAL 4
+VLAN CREATION AND PORT ASSIGNMENT (CISCO PACKET TRACER)
+
+====================================================
+
+LAB OVERVIEW
+
+Title: Practical 4 — VLAN Creation and Port Assignment
+Tool: Cisco Packet Tracer
+Level: Beginner
+Topic: VLAN Segmentation, Broadcast Domain Separation
+
+====================================================
+
+OBJECTIVE
+
+To understand and implement:
+
+What VLANs are and why they are used
+
+Creating VLANs on a switch
+
+Assigning switch ports to specific VLANs
+
+Testing communication within and across VLANs
+
+Observing VLAN-based isolation
+
+====================================================
+
+SOC / SECURITY RELEVANCE
+
+VLANs are one of the most important security controls in enterprise networks.
+
+They help prevent:
+
+Unrestricted lateral movement
+
+Flat network exposure
+
+Attack spread across departments
+
+SOC analysts must understand VLANs because:
+
+Many incidents involve VLAN misconfiguration
+
+Segmentation failures lead to breaches
+
+VLAN hopping is a known internal attack path
+
+====================================================
+
+TOPOLOGY
+
+We will use one switch with two VLAN groups:
+
+PC1 (VLAN 10) PC2 (VLAN 10)
+PC3 (VLAN 20) PC4 (VLAN 20)
+
+All connected to the same switch.
+
+Devices Required:
+
+1 Switch (Cisco 2960)
+
+4 PCs
+
+Topology Layout:
+
+PC1 -+
+PC2 -¦
+Switch
+PC3 -¦
+PC4 -+
+
+====================================================
+
+VLAN AND IP ADDRESSING PLAN
+
+We will create two VLANs:
+
+VLAN 10 ? HR Network
+VLAN 20 ? Finance Network
+
+Device VLAN IP Address Subnet Mask
+
+PC1 10 192.168.10.10 255.255.255.0
+PC2 10 192.168.10.20 255.255.255.0
+
+PC3 20 192.168.20.10 255.255.255.0
+PC4 20 192.168.20.20 255.255.255.0
+
+Note: No router is used in this lab, so VLANs will remain isolated.
+
+====================================================
+
+LAB IMPLEMENTATION STEPS
+
+====================================================
+
+STEP 1 — PLACE DEVICES
+
+Open Packet Tracer
+
+Add:
+
+1 Switch (2960)
+
+4 PCs (PC1, PC2, PC3, PC4)
+
+====================================================
+
+STEP 2 — CONNECT DEVICES
+
+Use Copper Straight-Through cables:
+
+PC1 FastEthernet0 ? Switch Fa0/1
+PC2 FastEthernet0 ? Switch Fa0/2
+PC3 FastEthernet0 ? Switch Fa0/3
+PC4 FastEthernet0 ? Switch Fa0/4
+
+Wait until all links are green.
+
+====================================================
+
+STEP 3 — CONFIGURE IP ADDRESSES
+
+Configure PCs:
+
+PC1
+
+IP: 192.168.10.10
+Mask: 255.255.255.0
+
+PC2
+
+IP: 192.168.10.20
+Mask: 255.255.255.0
+
+PC3
+
+IP: 192.168.20.10
+Mask: 255.255.255.0
+
+PC4
+
+IP: 192.168.20.20
+Mask: 255.255.255.0
+
+Default Gateway: Leave blank (no router)
+
+====================================================
+
+STEP 4 — CREATE VLANs ON THE SWITCH
+
+Click Switch ? CLI
+
+Enter:
+
+enable
+configure terminal
+
+Create VLAN 10
+
+vlan 10
+name HR
+exit
+
+Create VLAN 20
+
+vlan 20
+name FINANCE
+exit
+
+====================================================
+
+STEP 5 — ASSIGN PORTS TO VLANs
+
+Assign PC1 and PC2 ports to VLAN 10
+
+interface range fa0/1 - 2
+switchport mode access
+switchport access vlan 10
+exit
+
+Assign PC3 and PC4 ports to VLAN 20
+
+interface range fa0/3 - 4
+switchport mode access
+switchport access vlan 20
+exit
+
+====================================================
+
+VERIFICATION
+
+====================================================
+
+STEP 1 — CHECK VLAN LIST
+
+On switch:
+
+show vlan brief
+
+Expected Output:
+
+VLAN 10 ? Fa0/1, Fa0/2
+VLAN 20 ? Fa0/3, Fa0/4
+
+====================================================
+
+STEP 2 — TEST CONNECTIVITY WITHIN VLAN
+
+Ping inside VLAN 10:
+
+From PC1:
+
+ping 192.168.10.20
+
+Expected: SUCCESS
+
+Ping inside VLAN 20:
+
+From PC3:
+
+ping 192.168.20.20
+
+Expected: SUCCESS
+
+====================================================
+
+STEP 3 — TEST CONNECTIVITY ACROSS VLANs
+
+From PC1 (VLAN 10):
+
+ping 192.168.20.10
+
+Expected: FAIL
+
+Reason:
+
+Switch does not route between VLANs.
+
+VLANs isolate broadcast domains.
+
+====================================================
+
+KEY OBSERVATION
+
+====================================================
+
+Devices in the same VLAN communicate normally
+
+Devices in different VLANs are isolated
+
+VLANs provide segmentation without needing separate switches
+
+====================================================
+
+TROUBLESHOOTING
+
+====================================================
+
+If ping inside VLAN fails:
+
+Check port VLAN assignment
+
+Ensure correct IP subnet
+
+Verify VLAN exists
+
+Commands:
+
+show vlan brief
+show running-config
+
+====================================================
+
+LAB DELIVERABLES
+
+====================================================
+
+You must save:
+
+Screenshot of topology
+
+Output of show vlan brief
+
+Successful ping within VLAN 10
+
+Successful ping within VLAN 20
+
+Failed ping across VLANs
+
+Conclusion:
+
+“This lab demonstrated VLAN-based segmentation by isolating hosts into separate broadcast domains using access port assignments.”
+
+==================
