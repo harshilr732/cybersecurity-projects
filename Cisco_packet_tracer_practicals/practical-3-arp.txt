@@ -5,10 +5,10 @@ ARP BEHAVIOR AND TROUBLESHOOTING (CISCO PACKET TRACER)
 
 LAB OVERVIEW
 
-Title: Practical 3 ó ARP Behavior and Troubleshooting
+Title: Practical 3 ‚Äî ARP Behavior and Troubleshooting
 Tool: Cisco Packet Tracer
 Level: Beginner
-Topic: ARP Resolution, ARP Table, Layer 2ñLayer 3 Mapping
+Topic: ARP Resolution, ARP Table, Layer 2‚ÄìLayer 3 Mapping
 
 ====================================================
 
@@ -79,9 +79,9 @@ Purpose:
 
 When PC1 wants to send traffic to PC2:
 
-PC1 knows PC2ís IP address
+PC1 knows PC2‚Äôs IP address
 
-PC1 does NOT know PC2ís MAC address
+PC1 does NOT know PC2‚Äôs MAC address
 
 ARP is used to discover the MAC address
 
@@ -89,11 +89,11 @@ ARP Process:
 
 ARP Request (Broadcast)
 
-ìWho has 192.168.1.20?î
+‚ÄúWho has 192.168.1.20?‚Äù
 
 ARP Reply (Unicast)
 
-ìI am 192.168.1.20, here is my MAC address.î
+‚ÄúI am 192.168.1.20, here is my MAC address.‚Äù
 
 PC1 stores the mapping in its ARP cache.
 
@@ -103,7 +103,7 @@ LAB IMPLEMENTATION STEPS
 
 ====================================================
 
-STEP 1 ó VERIFY INITIAL CONNECTIVITY
+STEP 1 ‚Äî VERIFY INITIAL CONNECTIVITY
 
 From PC1:
 
@@ -117,7 +117,7 @@ Ensure ping works before ARP testing.
 
 ====================================================
 
-STEP 2 ó CHECK ARP TABLE BEFORE COMMUNICATION
+STEP 2 ‚Äî CHECK ARP TABLE BEFORE COMMUNICATION
 
 On PC1 Command Prompt, run:
 
@@ -131,7 +131,7 @@ Because no IP-to-MAC resolution has happened yet.
 
 ====================================================
 
-STEP 3 ó GENERATE ARP RESOLUTION
+STEP 3 ‚Äî GENERATE ARP RESOLUTION
 
 Now ping again:
 
@@ -141,7 +141,7 @@ This forces ARP resolution.
 
 ====================================================
 
-STEP 4 ó VIEW ARP TABLE AFTER PING
+STEP 4 ‚Äî VIEW ARP TABLE AFTER PING
 
 Run again on PC1:
 
@@ -155,7 +155,7 @@ Internet Address Physical Address
 
 This confirms:
 
-PC1 learned PC2ís MAC address.
+PC1 learned PC2‚Äôs MAC address.
 
 ====================================================
 
@@ -165,13 +165,13 @@ ARP PACKET OBSERVATION (SIMULATION MODE)
 
 This is the best part of the lab.
 
-STEP 1 ó Switch to Simulation Mode
+STEP 1 ‚Äî Switch to Simulation Mode
 
 Bottom right:
 
 Realtime ? Simulation
 
-STEP 2 ó Set Filters
+STEP 2 ‚Äî Set Filters
 
 Click Edit Filters
 
@@ -180,13 +180,13 @@ Select only:
 ARP
 ICMP
 
-STEP 3 ó Send Ping Again
+STEP 3 ‚Äî Send Ping Again
 
 From PC1:
 
 ping 192.168.1.20
 
-STEP 4 ó Observe Packet Flow
+STEP 4 ‚Äî Observe Packet Flow
 
 You will see:
 
@@ -214,7 +214,7 @@ Scenario: ARP Cache Problem
 
 Sometimes stale ARP entries cause issues.
 
-STEP 1 ó Clear ARP Cache on PC1
+STEP 1 ‚Äî Clear ARP Cache on PC1
 
 On PC1:
 
@@ -222,13 +222,13 @@ arp -d
 
 (This clears ARP table)
 
-STEP 2 ó Verify ARP Table Cleared
+STEP 2 ‚Äî Verify ARP Table Cleared
 
 arp -a
 
 Should show no entries.
 
-STEP 3 ó Ping Again
+STEP 3 ‚Äî Ping Again
 
 ping 192.168.1.20
 
@@ -244,7 +244,7 @@ ARP has no authentication.
 
 An attacker can send fake ARP replies:
 
-ìI am the gatewayî
+‚ÄúI am the gateway‚Äù
 
 This is ARP spoofing ? MITM attack.
 
@@ -270,6 +270,6 @@ Successful ping output
 
 Conclusion statement:
 
-ìThis lab demonstrated ARPís role in mapping IP addresses to MAC addresses and how ARP resolution occurs before ICMP communication.î
+‚ÄúThis lab demonstrated ARP‚Äôs role in mapping IP addresses to MAC addresses and how ARP resolution occurs before ICMP communication.‚Äù
 
 ==================================
