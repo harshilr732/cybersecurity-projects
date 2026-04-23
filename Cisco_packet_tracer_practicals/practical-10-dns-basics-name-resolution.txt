@@ -5,9 +5,9 @@ DNS BASICS (NAME RESOLUTION IN NETWORKS)
 
 LAB OVERVIEW
 
-Title: Practical 10 ó DNS Basics
+Title: Practical 10 ‚Äî DNS Basics
 Tool: Cisco Packet Tracer
-Level: BeginnerñIntermediate
+Level: Beginner‚ÄìIntermediate
 Topic: Domain Name Resolution, DNS Server Configuration
 
 ====================================================
@@ -81,7 +81,7 @@ LAB IMPLEMENTATION STEPS
 
 ====================================================
 
-STEP 1 ó PLACE DEVICES
+STEP 1 ‚Äî PLACE DEVICES
 
 In Packet Tracer:
 
@@ -97,7 +97,7 @@ PC1 ? Switch ? Server
 
 ====================================================
 
-STEP 2 ó CONNECT DEVICES
+STEP 2 ‚Äî CONNECT DEVICES
 
 Use Copper Straight-Through cables:
 
@@ -108,7 +108,7 @@ Wait for green lights.
 
 ====================================================
 
-STEP 3 ó CONFIGURE IP ADDRESSES
+STEP 3 ‚Äî CONFIGURE IP ADDRESSES
 
 Configure PC1
 
@@ -126,7 +126,7 @@ Subnet Mask: 255.255.255.0
 
 ====================================================
 
-STEP 4 ó ENABLE DNS SERVICE ON SERVER
+STEP 4 ‚Äî ENABLE DNS SERVICE ON SERVER
 
 Click Server
 
@@ -138,7 +138,7 @@ Turn DNS Service ON
 
 ====================================================
 
-STEP 5 ó ADD DNS RECORDS
+STEP 5 ‚Äî ADD DNS RECORDS
 
 In the DNS service page:
 
@@ -163,7 +163,7 @@ Address: 192.168.1.100
 
 ====================================================
 
-STEP 6 ó CONFIGURE DNS SETTINGS ON PC1
+STEP 6 ‚Äî CONFIGURE DNS SETTINGS ON PC1
 
 PC1 must know which DNS server to query.
 
@@ -179,7 +179,7 @@ VERIFICATION AND TESTING
 
 ====================================================
 
-STEP 1 ó TEST BASIC CONNECTIVITY
+STEP 1 ‚Äî TEST BASIC CONNECTIVITY
 
 From PC1:
 
@@ -189,7 +189,7 @@ ping 192.168.1.100
 
 Expected: SUCCESS
 
-STEP 2 ó TEST DNS RESOLUTION
+STEP 2 ‚Äî TEST DNS RESOLUTION
 
 On PC1 Command Prompt, type:
 
@@ -201,7 +201,7 @@ Name: www.agrismart.com
 
 Address: 192.168.1.100
 
-STEP 3 ó TEST USING WEB BROWSER
+STEP 3 ‚Äî TEST USING WEB BROWSER
 
 PC1 ? Desktop ? Web Browser
 
@@ -264,17 +264,7 @@ Commands:
 ping DNS server
 nslookup domain
 
-====================================================
 
-LAB DELIVERABLES
-
-====================================================
-
-Save:
-
-Topology screenshot
-
-DNS record screenshot (server DNS page)
 
 Output of nslookup command
 
@@ -284,4 +274,4 @@ Web browser test result (optional)
 
 Conclusion:
 
-ìThis lab demonstrated DNS name resolution by configuring a DNS server and validating domain-to-IP mapping using nslookup.î
+‚ÄúThis lab demonstrated DNS name resolution by configuring a DNS server and validating domain-to-IP mapping using nslookup.‚Äù
