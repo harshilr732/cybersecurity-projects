@@ -5,7 +5,7 @@ BASIC IP ADDRESSING AND SUBNETTING (CISCO PACKET TRACER)
 
 LAB OVERVIEW
 
-Title: Practical 1 ó Basic IP Addressing and Subnetting
+Title: Practical 1 ‚Äî Basic IP Addressing and Subnetting
 Tool: Cisco Packet Tracer
 Level: Beginner
 Topic: Layer 3 Addressing + Subnet Separation + Default Gateway
@@ -83,7 +83,7 @@ LAB IMPLEMENTATION STEPS (PACKET TRACER)
 
 ====================================================
 
-STEP 1 ó PLACE DEVICES
+STEP 1 ‚Äî PLACE DEVICES
 
 Open Cisco Packet Tracer
 
@@ -105,7 +105,7 @@ PC1 ? Switch1 ? Router ? Switch2 ? PC2
 
 ====================================================
 
-STEP 2 ó CONNECT DEVICES
+STEP 2 ‚Äî CONNECT DEVICES
 
 Use Copper Straight-Through cables.
 
@@ -123,7 +123,7 @@ Wait until all link lights turn green.
 
 ====================================================
 
-STEP 3 ó CONFIGURE PC IP ADDRESSES
+STEP 3 ‚Äî CONFIGURE PC IP ADDRESSES
 
 Configure PC1
 
@@ -151,7 +151,7 @@ Default Gateway: 192.168.20.1
 
 ====================================================
 
-STEP 4 ó CONFIGURE ROUTER INTERFACES
+STEP 4 ‚Äî CONFIGURE ROUTER INTERFACES
 
 Click Router
 
@@ -189,7 +189,7 @@ VERIFICATION AND TESTING
 
 ====================================================
 
-STEP 1 ó CHECK ROUTER STATUS
+STEP 1 ‚Äî CHECK ROUTER STATUS
 
 On router CLI:
 
@@ -204,7 +204,7 @@ G0/1 192.168.20.1 up/up
 
 ====================================================
 
-STEP 2 ó TEST GATEWAY CONNECTIVITY
+STEP 2 ‚Äî TEST GATEWAY CONNECTIVITY
 
 From PC1 Command Prompt:
 
@@ -220,7 +220,7 @@ Expected: Reply received
 
 ====================================================
 
-STEP 3 ó TEST CROSS-SUBNET CONNECTIVITY
+STEP 3 ‚Äî TEST CROSS-SUBNET CONNECTIVITY
 
 From PC1:
 
@@ -268,4 +268,4 @@ Output of show ip interface brief
 
 Short conclusion statement:
 
-ìThis lab demonstrated basic IP addressing across two subnets and verified inter-network communication through router interfaces.î
+‚ÄúThis lab demonstrated basic IP addressing across two subnets and verified inter-network communication through router interfaces.‚Äù
